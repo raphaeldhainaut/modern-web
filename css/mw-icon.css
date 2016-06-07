@@ -1,0 +1,136 @@
+/*
+ *   ModernWeb <http://modernweb.azurewebsites.net/>
+ *   Copyright 2016 Raphael Dhainaut, David Vanschepdael
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ * 
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+/* ==========================================================================
+   Icon
+   ========================================================================== */
+.mw-icon {
+  text-align: center;
+}
+
+/* icon size
+   ========================================================================== */
+.mw-icon.mw-size-100x,
+i.mw-size-100x {
+  font-size: 1em !important;
+}
+.mw-icon.mw-size-125x,
+i.mw-size-125x {
+  font-size: 1.25em !important;
+}
+.mw-icon.mw-size-150x,
+i.mw-size-150x {
+  font-size: 1.5em !important;
+}
+.mw-icon.mw-size-200x,
+i.mw-size-200x {
+  font-size: 2em !important;
+}
+.mw-icon.mw-size-250x,
+i.mw-size-250x {
+  font-size: 2.5em !important;
+}
+.mw-icon.mw-size-300x,
+i.mw-size-300x {
+  font-size: 3em !important;
+}
+.mw-icon.mw-size-400x,
+i.mw-size-400x {
+  font-size: 4em !important;
+}
+.mw-icon.mw-size-500x,
+i.mw-size-500x {
+  font-size: 5em !important;
+}
+.mw-icon.mw-size-600x,
+i.mw-size-600x {
+  font-size: 6em !important;
+}
+.mw-icon.mw-size-700x,
+i.mw-size-700x {
+  font-size: 7em !important;
+}
+.mw-icon.mw-size-800x,
+i.mw-size-800x {
+  font-size: 8em !important;
+}
+.mw-icon.mw-size-900x,
+i.mw-size-900x {
+  font-size: 9em !important;
+}
+.mw-icon.mw-size-1000x,
+i.mw-size-1000x {
+  font-size: 10em !important;
+}
+
+/* icon image size
+   ========================================================================== */
+img.mw-icon.mw-size-100x {
+  width: 1em !important;
+  height: 1em !important;
+}
+img.mw-icon.mw-size-125x {
+  width: 1.25em !important;
+  height: 1.25em !important;
+}
+img.mw-icon.mw-size-150x {
+  width: 1.5em !important;
+  height: 1.5em !important;
+}
+img.mw-icon.mw-size-200x {
+  width: 2em !important;
+  height: 2em !important;
+}
+img.mw-icon.mw-size-250x {
+  width: 2.5em !important;
+  height: 2.5em !important;
+}
+img.mw-icon.mw-size-300x {
+  width: 3em !important;
+  height: 3em !important;
+}
+img.mw-icon.mw-size-400x {
+  width: 4em !important;
+  height: 4em !important;
+}
+img.mw-icon.mw-size-500x {
+  width: 5em !important;
+  height: 5em !important;
+}
+img.mw-icon.mw-size-600x {
+  width: 6em !important;
+  height: 6em !important;
+}
+img.mw-icon.mw-size-700x {
+  width: 7em !important;
+  height: 7em !important;
+}
+img.mw-icon.mw-size-800x {
+  width: 8em !important;
+  height: 8em !important;
+}
+img.mw-icon.mw-size-900x {
+  width: 9em !important;
+  height: 9em !important;
+}
+img.mw-icon.mw-size-1000x {
+  width: 10em !important;
+  height: 10em !important;
+}
+
+img.mw-icon.mw-size-100x, img.mw-icon.mw-size-125x, img.mw-icon.mw-size-150x, img.mw-icon.mw-size-200x, img.mw-icon.mw-size-250x, img.mw-icon.mw-size-300x, img.mw-icon.mw-size-400x, img.mw-icon.mw-size-500x, img.mw-icon.mw-size-600x, img.mw-icon.mw-size-700x, img.mw-icon.mw-size-800x, img.mw-icon.mw-size-900x, img.mw-icon.mw-size-1000x {
+  font-size: 1em !important;
+}

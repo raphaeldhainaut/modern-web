@@ -1,0 +1,112 @@
+/*
+ *   ModernWeb <http://modernweb.azurewebsites.net/>
+ *   Copyright 2016 Raphael Dhainaut, David Vanschepdael
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ * 
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+/* ==========================================================================
+   Menu
+   ========================================================================== */
+.mw-menu {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  min-width: 155px;
+  background-color: white;
+  border: 1px solid #979797;
+}
+
+/* menu type
+   ========================================================================== */
+.mw-menu.mw-contextual {
+  position: absolute;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* header 
+   ========================================================================== */
+.mw-menu .mw-header {
+  display: block;
+  width: calc(100% + 2 * 2px);
+  position: relative;
+  overflow: hidden;
+  padding: 4px 8px;
+  margin-top: -2px;
+  margin-left: -2px;
+  margin-bottom: 2px;
+  background-color: #EEE;
+  border-bottom: 1px #DCDDDE solid;
+  border-top: 1px #DCDDDE solid;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: #646464;
+  z-index: 1;
+}
+
+/* pane 
+   ========================================================================== */
+.mw-menu .mw-panes {
+  padding: 2px;
+}
+.mw-menu .mw-panes:before {
+  display: inline-block;
+  height: calc(100% - 2px * 2);
+  width: 0;
+  content: " ";
+  position: absolute;
+  top: 2px;
+  left: 29px;
+  margin: 0;
+  padding: 0;
+  border-top: none;
+  border-bottom: none;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.mw-menu .mw-pane {
+  border-color: transparent;
+  margin: 0;
+}
+.mw-menu .mw-pane .mw-inner {
+  padding: 5px 4px;
+  padding-left: calc(25px + (2 * 2px) + 4px);
+  font-size: 14px;
+}
+.mw-menu .mw-pane .mw-inner .mw-title {
+  margin-left: 0;
+}
+
+.mw-menu .mw-pane .mw-inner > .mw-icon,
+.mw-menu .mw-pane .mw-inner > i {
+  position: absolute;
+  top: calc(50% - 0.5em);
+  left: 5px;
+  margin: 0;
+  font-size: 1em;
+  width: 1em;
+}
+
+.mw-theme-light.mw-menu .mw-pane .mw-inner > .mw-icon,
+.mw-theme-light.mw-menu .mw-pane .mw-inner i {
+  color: inherit;
+}
+
+/* divider 
+   ========================================================================== */
+.mw-menu .mw-divider:not(.mw-vertical) {
+  width: calc(100% - 25px - 2px * 2);
+  margin: 4px 0;
+  margin-left: calc(25px + 4px);
+}

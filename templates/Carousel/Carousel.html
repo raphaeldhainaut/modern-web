@@ -1,0 +1,31 @@
+﻿<div class="mw-carousel">
+    <div class="mw-inner">
+        <!-- Progress bar -->
+        <mw-progress ng-show="CarouselCtrl.HasProgressBar">
+            <mw-progress-bar-animated class="progress-bar-danger"></mw-progress-bar-animated>
+        </mw-progress>
+        <!-- Slides -->
+       <div class="mw-slides" ng-transclude></div>
+        <!-- Controls -->
+        <div class="mw-controls" ng-show="CarouselCtrl.HasNavigation">
+            <!-- Previous -->
+            <div class="mw-control mw-prev" ng-click="CarouselCtrl.Prev()">
+                <i class="material-icons">arrow_back</i>
+                <span class="sr-only">previous</span>
+            </div>
+            <!-- Next -->
+            <div class="mw-control mw-next" ng-click="CarouselCtrl.Next()">
+                <i class="material-icons">arrow_forward</i>
+                <span class="sr-only">next</span>
+            </div>
+            <!-- Indicators -->
+            <div class="mw-indicators">
+                <ul class="list-unstyled list-inline">
+                    <li class="mw-control mw-indicator" ng-repeat="slide in slides track by $index" ng-class="{'mw-active': CarouselCtrl.IsSlideActive($index)}" ng-click="CarouselCtrl.Select($index)">
+                        <span class="sr-only">slide {{$index + 1}} of {{slides.length}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

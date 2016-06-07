@@ -1,0 +1,1 @@
+.mw-dialog .modal{display:block}.mw-dialog.mw-modal::before{display:block;width:100vw;height:100vh;position:fixed;top:0;left:0;background:#000;opacity:.75;z-index:9990;content:" "}.mw-dialog .mw-controls{float:right;padding:1rem 2rem}

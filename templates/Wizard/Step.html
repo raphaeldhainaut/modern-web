@@ -1,0 +1,17 @@
+﻿<div class="mw-step" id="step-{{step.id}}" ng-class="{'mw-active': step.isActive}">
+    <a class="mw-tab" href="#step-{{step.id}}" ng-click="Select();"></a>
+    <div class="mw-inner">
+        <div ng-transclude style="width: 100%; height: 100%;"></div>
+        <div class="mw-controls mw-position-bottom mw-position-right">
+            <button type="button" title="previous" class="btn btn-default btn-lg mw-button mw-circular" ng-click="Previous();" ng-show="step.hasPreviousControl">
+                <i class="mw-icon fa fa-long-arrow-left" style="margin: 0;"></i>
+            </button>
+            <button type="button" title="next" class="btn btn-default btn-lg mw-button mw-circular" ng-click="Next();" ng-show="step.hasNextControl" ng-disabled="step.isSubmitted && !Valid()">
+                <i class="mw-icon fa fa-long-arrow-right" style="margin: 0;"></i>
+            </button>
+            <button type="submit" title="finish" class="btn btn-default btn-lg mw-button mw-circular" ng-click="Finish($event);" ng-show="step.hasFinishControl">
+                <i class="mw-icon fa fa-check mw-fg-green-dark"></i>
+            </button>
+        </div>
+    </div>
+</div>
