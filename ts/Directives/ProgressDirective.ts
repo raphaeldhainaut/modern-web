@@ -11,7 +11,7 @@ module ModernWeb.Directives {
         public transclude: boolean = true;
         public replace: boolean = true;
         public templateUrl: (element: JQuery, attributs: IBaseDirectiveAttributs) => string = (element: JQuery, attributs: IBaseDirectiveAttributs): string => {
-            return attributs.templateUrl || '/lib/modernWeb/templates/ProgressBar/Progress.html';
+            return attributs.templateUrl || TEMPLATES_PATH + 'ProgressBar/Progress.html';
         };
         public controller: string = "ProgressController";
         public controllerAs: string = "ProgressCtrl";

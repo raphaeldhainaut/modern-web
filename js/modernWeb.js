@@ -82,6 +82,7 @@ var ModernWeb;
     var Directives;
     (function (Directives) {
         'use strict';
+        Directives.TEMPLATES_PATH = '/lib/modern-web/templates/';
         /* ==========================================================================
             BaseDirective
             ========================================================================== */
@@ -276,7 +277,7 @@ var ModernWeb;
                 this.transclude = false;
                 this.replace = true;
                 this.templateUrl = function (element, attributs) {
-                    return attributs.templateUrl || '/lib/modernWeb/templates/Animate/Number.html';
+                    return attributs.templateUrl || Directives.TEMPLATES_PATH + 'Animate/Number.html';
                 };
             }
             AnimateNumberDirective.Factory = function () {
@@ -328,7 +329,7 @@ var ModernWeb;
                 this.transclude = true;
                 this.replace = true;
                 this.templateUrl = function (element, attributs) {
-                    return attributs.templateUrl || '/lib/modernWeb/templates/ProgressBar/Progress.html';
+                    return attributs.templateUrl || Directives.TEMPLATES_PATH + 'ProgressBar/Progress.html';
                 };
                 this.controller = "ProgressController";
                 this.controllerAs = "ProgressCtrl";
@@ -457,7 +458,7 @@ var ModernWeb;
                 this.transclude = true;
                 this.replace = true;
                 this.templateUrl = function (element, attributs) {
-                    return attributs.templateUrl || '/lib/modernWeb/templates/ProgressBar/ProgressBar.html';
+                    return attributs.templateUrl || Directives.TEMPLATES_PATH + 'ProgressBar/ProgressBar.html';
                 };
             }
             ProgressBarDirective.Factory = function () {
@@ -565,7 +566,7 @@ var ModernWeb;
                 this.transclude = true;
                 this.replace = true;
                 this.templateUrl = function (element, attributs) {
-                    return attributs.templateUrl || '/lib/modernWeb/templates/ProgressBar/ProgressBarAnimated.html';
+                    return attributs.templateUrl || Directives.TEMPLATES_PATH + 'ProgressBar/ProgressBarAnimated.html';
                 };
                 this.scope = false;
             }
@@ -1094,7 +1095,7 @@ var ModernWeb;
                 this.transclude = true;
                 this.replace = true;
                 this.templateUrl = function (element, attributs) {
-                    return attributs.templateUrl || '/lib/modernWeb/templates/Carousel/Carousel.html';
+                    return attributs.templateUrl || Directives.TEMPLATES_PATH + 'Carousel/Carousel.html';
                 };
                 this.controller = "CarouselController";
                 this.controllerAs = "CarouselCtrl";
@@ -1131,7 +1132,7 @@ var ModernWeb;
                 this.transclude = true;
                 this.replace = true;
                 this.templateUrl = function (element, attributs) {
-                    return attributs.templateUrl || '/lib/modernWeb/templates/Carousel/Slide.html';
+                    return attributs.templateUrl || Directives.TEMPLATES_PATH + 'Carousel/Slide.html';
                 };
                 this.scope = {
                     slide: "="
@@ -1264,7 +1265,7 @@ var ModernWeb;
                 this.transclude = true;
                 this.replace = true;
                 this.templateUrl = function (element, attributs) {
-                    return attributs.templateUrl || '/lib/modernWeb/templates/Dialog/Dialog.html';
+                    return attributs.templateUrl || Directives.TEMPLATES_PATH + 'Dialog/Dialog.html';
                 };
                 this.link = function ($scope, element, attributes) {
                     $scope.id = attributes.id;
@@ -1304,7 +1305,7 @@ var ModernWeb;
                 this.transclude = true;
                 this.replace = true;
                 this.templateUrl = function (element, attributs) {
-                    return attributs.templateUrl || '/lib/modernWeb/templates/Wizard/Wizard.html';
+                    return attributs.templateUrl || Directives.TEMPLATES_PATH + 'Wizard/Wizard.html';
                 };
                 this.controller = "WizardController";
                 this.controllerAs = "WizardCtrl";
@@ -1340,7 +1341,7 @@ var ModernWeb;
                 this.transclude = true;
                 this.replace = true;
                 this.templateUrl = function (element, attributs) {
-                    return attributs.templateUrl || '/lib/modernWeb/templates/Wizard/Step.html';
+                    return attributs.templateUrl || Directives.TEMPLATES_PATH + 'Wizard/Step.html';
                 };
                 this.scope = {
                     step: "=",
@@ -1441,7 +1442,7 @@ var ModernWeb;
                 this.transclude = true;
                 this.replace = true;
                 this.templateUrl = function (element, attributs) {
-                    return attributs.templateUrl || '/lib/modernWeb/templates/Grid/Grid.html';
+                    return attributs.templateUrl || Directives.TEMPLATES_PATH + 'Grid/Grid.html';
                 };
                 this.link = function ($scope, $element, attributs) {
                     $scope.grid = {

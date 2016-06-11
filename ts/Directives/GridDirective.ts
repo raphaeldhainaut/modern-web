@@ -15,7 +15,7 @@ module ModernWeb.Directives {
         public transclude: boolean = true;
         public replace: boolean = true;
         public templateUrl: (element: JQuery, attributs: IBaseDirectiveAttributs) => string = (element: JQuery, attributs: IBaseDirectiveAttributs): string => {
-            return attributs.templateUrl || '/lib/modernWeb/templates/Grid/Grid.html';
+            return attributs.templateUrl || TEMPLATES_PATH + 'Grid/Grid.html';
         };
         public link: ng.IDirectiveLinkFn = ($scope: IGridScope, $element: JQuery, attributs: IBaseDirectiveAttributs): void => {
             $scope.grid = <IDataGridModel>{

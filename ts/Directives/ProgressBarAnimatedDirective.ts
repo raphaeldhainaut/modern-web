@@ -12,7 +12,7 @@ module ModernWeb.Directives {
         public transclude: boolean = true;
         public replace: boolean = true;
         public templateUrl: (element: JQuery, attributs: IBaseDirectiveAttributs) => string = (element: JQuery, attributs: IBaseDirectiveAttributs): string => {
-            return attributs.templateUrl || '/lib/modernWeb/templates/ProgressBar/ProgressBarAnimated.html';
+            return attributs.templateUrl || TEMPLATES_PATH + 'ProgressBar/ProgressBarAnimated.html';
         };
         public scope: boolean = false;
 

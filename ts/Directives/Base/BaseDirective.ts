@@ -3,6 +3,8 @@
 module ModernWeb.Directives {
     'use strict';
 
+    export const TEMPLATES_PATH: string = '/lib/modern-web/templates/';
+
 /* ==========================================================================
     Interface
     ========================================================================== */

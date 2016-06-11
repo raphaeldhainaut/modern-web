@@ -15,7 +15,7 @@ module ModernWeb.Directives {
         public transclude: boolean = true;
         public replace: boolean = true;
         public templateUrl: (element: JQuery, attributs: IBaseDirectiveAttributs) => string = (element: JQuery, attributs: IBaseDirectiveAttributs): string => {
-            return attributs.templateUrl || '/lib/modernWeb/templates/Carousel/Slide.html';
+            return attributs.templateUrl || TEMPLATES_PATH + 'Carousel/Slide.html';
         };
         public scope: any = {
             slide: "="
