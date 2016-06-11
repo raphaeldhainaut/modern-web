@@ -1,1 +1,28 @@
-﻿
+﻿<div class="mw-grid">
+    <header class="mw-header">
+        <h3 class="mw-title">Grid Title</h3>
+    </header>
+    <div class="mw-body">
+        <table class="table table-striped mw-table">
+            <colgroup>
+                <col ng-repeat="col in grid.cols"/>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th ng-repeat="col in grid.cols" ng-class="{'mw-sortable':col.isSortable, 'mw-sorted':true, 'mw-up':true, 'mw-down':false}">
+                        <a ng-if="col.isSortable" href="#" ng-click="GridCtrl.Sort(col.field)">{{col.title}}</a>
+                        <span ng-if="!col.isSortable">{{col.title}}</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in grid.rows">
+                    <td ng-repeat="col in grid.cols">{{row[col.field]}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer class="mw-footer">
+        <div class="mw-legend mw-text-right">{{grid.rows.length}} items</div>
+    </footer>
+</div>

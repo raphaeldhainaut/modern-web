@@ -56,7 +56,7 @@ var ModernWeb;
             __extends(DialogService, _super);
             function DialogService() {
                 _super.call(this);
-                this.dialogs = new Utilities.Dictionary();
+                this.dialogs = new Core.Dictionary();
             }
             DialogService.prototype.AddDialog = function (dialog) {
                 this.dialogs.Add(dialog.id, dialog);
@@ -1398,6 +1398,95 @@ var ModernWeb;
     var Controllers;
     (function (Controllers) {
         'use strict';
+        /* ==========================================================================
+            GridController
+            ========================================================================== */
+        var GridController = (function (_super) {
+            __extends(GridController, _super);
+            function GridController($scope, $element, $odataresource) {
+                _super.call(this, $scope);
+                this.dataSource = $odataresource($element.attr('url'));
+            }
+            GridController.prototype.SynchronizeScroll = function () {
+            };
+            GridController.prototype.Sort = function (field) {
+                //var character = this.odataresource('/odata/Characters/:characterId', { characterId: '@id' });
+                //var character = this.odataresource('/odata/Characters');
+                var ryu = this.dataSource.odata().filter("Name", "Ryu").query();
+                console.log(ryu);
+            };
+            GridController.$inject = ['$scope', '$element', '$odataresource'];
+            return GridController;
+        })(Controllers.BaseController);
+        Controllers.GridController = GridController;
+    })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
+})(ModernWeb || (ModernWeb = {}));
+/// <reference path="Base/BaseDirective.ts" />
+/// <reference path="../Controllers/GridController.ts" />
+var ModernWeb;
+(function (ModernWeb) {
+    var Directives;
+    (function (Directives) {
+        'use strict';
+        /* ==========================================================================
+            Interface
+            ========================================================================= */
+        /* ==========================================================================
+            GridDirective
+            ========================================================================== */
+        var GridDirective = (function (_super) {
+            __extends(GridDirective, _super);
+            function GridDirective() {
+                _super.call(this);
+                this.transclude = true;
+                this.replace = true;
+                this.templateUrl = function (element, attributs) {
+                    return attributs.templateUrl || '/lib/modernWeb/templates/Grid/Grid.html';
+                };
+                this.link = function ($scope, $element, attributs) {
+                    $scope.grid = {
+                        cols: $scope.columns,
+                        rows: {}
+                    };
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: $scope.url,
+                        async: false
+                    }).done(function (data) {
+                        $scope.grid.rows = data;
+                    }).fail(function () {
+                        //TODO Manage error
+                        //console.log();
+                    });
+                };
+                this.controller = "GridController";
+                this.controllerAs = "GridCtrl";
+                this.scope = {
+                    url: '@',
+                    columns: '=',
+                    isPageable: '=pageable',
+                    isFilterable: '=filterable'
+                };
+            }
+            GridDirective.Factory = function () {
+                var directive = function () {
+                    return new GridDirective();
+                };
+                directive["$inject"] = [];
+                return directive;
+            };
+            return GridDirective;
+        })(Directives.BaseDirective);
+        Directives.GridDirective = GridDirective;
+    })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
+})(ModernWeb || (ModernWeb = {}));
+/// <reference path="Base/BaseController.ts" />
+var ModernWeb;
+(function (ModernWeb) {
+    var Controllers;
+    (function (Controllers) {
+        'use strict';
         /*  ==========================================================================
             InsertController
             ========================================================================== */
@@ -1675,27 +1764,6 @@ var ModernWeb;
         Controllers.WizardController = WizardController;
     })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
 })(ModernWeb || (ModernWeb = {}));
-/// <reference path="Base/BaseController.ts" />
-var ModernWeb;
-(function (ModernWeb) {
-    var Controllers;
-    (function (Controllers) {
-        'use strict';
-        /* ==========================================================================
-            GridController
-            ========================================================================== */
-        var GridController = (function (_super) {
-            __extends(GridController, _super);
-            function GridController($scope) {
-                _super.call(this, $scope);
-            }
-            GridController.prototype.SynchronizeScroll = function () {
-            };
-            return GridController;
-        })(Controllers.BaseController);
-        Controllers.GridController = GridController;
-    })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
-})(ModernWeb || (ModernWeb = {}));
 /// <reference path="ModernWeb.ts" />
 /// <reference path="Services/DialogService.ts" />
 /// <reference path="Directives/AnimateNumberDirective.ts" />
@@ -1707,6 +1775,7 @@ var ModernWeb;
 /// <reference path="Directives/DialogDirective.ts" />
 /// <reference path="Directives/WizardDirective.ts" />
 /// <reference path="Directives/StepDirective.ts" />
+/// <reference path="Directives/GridDirective.ts" />
 /// <reference path="Controllers/AnimateNumberController.ts" />
 /// <reference path="Controllers/InsertController.ts" />
 /// <reference path="Controllers/ProgressController.ts" />
@@ -1724,7 +1793,7 @@ var ModernWeb;
         Module
         ========================================================================== */
     angular
-        .module('ModernWeb', [])
+        .module('ModernWeb', ['ODataResources'])
         .run(['$rootScope', function ($rootScope) {
             $rootScope.PlayState = ModernWeb.PlayState;
             $rootScope.PlayType = ModernWeb.PlayType;
@@ -1751,40 +1820,5 @@ var ModernWeb;
         .controller('CarouselController', ModernWeb.Controllers.CarouselController)
         .controller('WizardController', ModernWeb.Controllers.WizardController)
         .controller('GridController', ModernWeb.Controllers.GridController);
-})(ModernWeb || (ModernWeb = {}));
-/// <reference path="Base/BaseDirective.ts" />
-/// <reference path="../Controllers/GridController.ts" />
-var ModernWeb;
-(function (ModernWeb) {
-    var Directives;
-    (function (Directives) {
-        'use strict';
-        /* ==========================================================================
-            Interface
-            ========================================================================= */
-        /* ==========================================================================
-            GridDirective
-            ========================================================================== */
-        var GridDirective = (function (_super) {
-            __extends(GridDirective, _super);
-            function GridDirective() {
-                _super.call(this);
-                this.transclude = true;
-                this.replace = true;
-                this.templateUrl = function (element, attributs) {
-                    return attributs.templateUrl || '/lib/modernWeb/templates/Grid/Grid.html';
-                };
-            }
-            GridDirective.Factory = function () {
-                var directive = function () {
-                    return new GridDirective();
-                };
-                directive["$inject"] = [];
-                return directive;
-            };
-            return GridDirective;
-        })(Directives.BaseDirective);
-        Directives.GridDirective = GridDirective;
-    })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
 //# sourceMappingURL=modernWeb.js.map

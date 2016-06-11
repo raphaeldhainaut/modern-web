@@ -124,8 +124,22 @@
         isRunning: boolean;
     }
 
-    export interface IGridModel  {
+    export interface IDataGridModel {
+        cols: IDataGridColumnModel[];
+        rows: Object[];
+    }
+
+    export interface IDataGridColumnModel {
+        field: string;
+        title: string;
         isSortable: boolean;
+    }
+
+    export interface IGridModel  {
+        url: string;
+        columns: IDataGridColumnModel[];
+        isPageable: boolean;
+        isFilterable: boolean;
     }
 
     export interface IGridBusinessModel extends IGridModel {
@@ -190,5 +204,6 @@
     }
 
     export interface IGridScope extends ng.IScope, ModernWeb.IGridBusinessModel {
+        grid: IDataGridModel;
     }
 }

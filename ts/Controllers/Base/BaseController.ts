@@ -21,7 +21,7 @@ module ModernWeb.Controllers {
                 }
 
                 for (var i: number = 0; i < dataResponse.errors.length; i++) {
-                    var dataResponseErrors: Utilities.IKeyValuePair<string, String[]> = dataResponse.errors[i];
+                    var dataResponseErrors: Core.IKeyValuePair<string, String[]> = dataResponse.errors[i];
                     var fieldName = dataResponseErrors.Key;
                     var errors = dataResponseErrors.Value;
                     var errorsMessage = [];

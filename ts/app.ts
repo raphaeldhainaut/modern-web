@@ -9,6 +9,7 @@
 /// <reference path="Directives/DialogDirective.ts" />
 /// <reference path="Directives/WizardDirective.ts" />
 /// <reference path="Directives/StepDirective.ts" />
+/// <reference path="Directives/GridDirective.ts" />
 /// <reference path="Controllers/AnimateNumberController.ts" />
 /// <reference path="Controllers/InsertController.ts" />
 /// <reference path="Controllers/ProgressController.ts" />
@@ -27,7 +28,7 @@ module ModernWeb { // namespace = ModernWeb
     Module
     ========================================================================== */
     angular
-        .module('ModernWeb', [])
+        .module('ModernWeb', ['ODataResources'])
 
         /*  RootScope
         ========================================================================== */

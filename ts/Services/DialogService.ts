@@ -7,13 +7,13 @@ module ModernWeb.Services {
    DialogService
    ========================================================================== */
     export class DialogService extends ServiceBase {
-        private dialogs: Utilities.IDictionary<ModernWeb.IDialogBusinessModel>;
+        private dialogs: Core.IDictionary<ModernWeb.IDialogBusinessModel>;
         
         static $inject = [];
 
         public constructor() {
             super();
-            this.dialogs = new Utilities.Dictionary<ModernWeb.IDialogBusinessModel>();
+            this.dialogs = new Core.Dictionary<ModernWeb.IDialogBusinessModel>();
         }
 
         public AddDialog(dialog: ModernWeb.IDialogBusinessModel): void {

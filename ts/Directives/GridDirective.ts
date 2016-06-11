@@ -17,6 +17,33 @@ module ModernWeb.Directives {
         public templateUrl: (element: JQuery, attributs: IBaseDirectiveAttributs) => string = (element: JQuery, attributs: IBaseDirectiveAttributs): string => {
             return attributs.templateUrl || '/lib/modernWeb/templates/Grid/Grid.html';
         };
+        public link: ng.IDirectiveLinkFn = ($scope: IGridScope, $element: JQuery, attributs: IBaseDirectiveAttributs): void => {
+            $scope.grid = <IDataGridModel>{
+                cols: $scope.columns,
+                rows: {}
+            };
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: $scope.url,
+                async: false
+            }).done((data: any) => {
+                $scope.grid.rows = data;
+            }).fail(function () {
+                //TODO Manage error
+                //console.log();
+            });
+        };
+        public controller: string = "GridController";
+        public controllerAs: string = "GridCtrl";
+        
+        public scope = {
+            url: '@',
+            columns: '=',
+            isPageable: '=pageable',
+            isFilterable: '=filterable'
+        };
 
         public constructor() {
             super();
