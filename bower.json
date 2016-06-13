@@ -1,17 +1,18 @@
 {
   "name": "modern-web",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "A set of awesome modern components that you can use in every Web project",
   "authors": [
     "Raphael Dhainaut <raphaeldhainaut@outlook.com>",
     "David Vanschepdael <david.vanschepdael@outlook.com>"
   ],
   "keywords": [
-    "frontend",
-    "css",
-    "utilities",
     "modern",
-    "modern-web"
+    "frontend",
+    "metro",
+    "modernUI",
+    "css",
+    "angularjs"
   ],
   "license": "http://modernweb.azurewebsites.net/license",
   "homepage": "http://modernweb.azurewebsites.net/",
