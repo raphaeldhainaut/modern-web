@@ -28,5 +28,9 @@
   -webkit-animation: linear effect-progress 2s 1;
   animation: linear effect-progress 2s 1;
 }
+.mw-progress .mw-paused {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
 
 /*# sourceMappingURL=mw-progress.css.map */

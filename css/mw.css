@@ -1314,6 +1314,13 @@
 
 /* Structure (headers, contents)
    ========================================================================== */
+.mw-grid input {
+  border-radius: 0;
+}
+.mw-grid .form-control {
+  border-radius: 0;
+}
+
 /* Grid Table
    ========================================================================== */
 .mw-grid .mw-table {
@@ -1342,6 +1349,12 @@
    ========================================================================== */
 .mw-grid .btn {
   border-radius: 0;
+}
+
+/* Grid Searchbar
+   ========================================================================== */
+.mw-grid .mw-searchbar {
+  width: 100%;
 }
 
 /*# sourceMappingURL=mw-grid.css.map */
@@ -2774,6 +2787,10 @@ img.mw-icon.mw-size-100x, img.mw-icon.mw-size-125x, img.mw-icon.mw-size-150x, im
   -webkit-animation: linear effect-progress 2s 1;
   animation: linear effect-progress 2s 1;
 }
+.mw-progress .mw-paused {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
 
 /*# sourceMappingURL=mw-progress.css.map */
 
@@ -3050,11 +3067,11 @@ img.mw-icon.mw-size-100x, img.mw-icon.mw-size-125x, img.mw-icon.mw-size-150x, im
   text-align: center;
   content: "\f0d7";
 }
-.mw-ribbon .mw-panel .mw-control.mw-disabled .mw-icon, .mw-ribbon .mw-panel .mw-control.mw-disabled .mw-label {
+.mw-ribbon .mw-panel .mw-control.mw-disabled, .mw-ribbon .mw-panel .mw-control[disabled] {
   cursor: default;
   color: #777;
 }
-.mw-ribbon .mw-panel .mw-control.mw-disabled:hover {
+.mw-ribbon .mw-panel .mw-control.mw-disabled:hover, .mw-ribbon .mw-panel .mw-control[disabled]:hover {
   cursor: default;
   border-color: #CCC !important;
   background-image: none !important;

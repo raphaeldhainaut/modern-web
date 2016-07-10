@@ -1,3 +1,8 @@
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var ModernWeb;
 (function (ModernWeb) {
     'use strict';
@@ -20,6 +25,11 @@ var ModernWeb;
         PlayDirection[PlayDirection["Descending"] = 1] = "Descending";
     })(ModernWeb.PlayDirection || (ModernWeb.PlayDirection = {}));
     var PlayDirection = ModernWeb.PlayDirection;
+    (function (SortDirection) {
+        SortDirection[SortDirection["Ascending"] = 0] = "Ascending";
+        SortDirection[SortDirection["Descending"] = 1] = "Descending";
+    })(ModernWeb.SortDirection || (ModernWeb.SortDirection = {}));
+    var SortDirection = ModernWeb.SortDirection;
 })(ModernWeb || (ModernWeb = {}));
 /// <reference path="../../ModernWeb.ts" />
 var ModernWeb;
@@ -34,16 +44,11 @@ var ModernWeb;
             function ServiceBase() {
             }
             return ServiceBase;
-        })();
+        }());
         Services.ServiceBase = ServiceBase;
     })(Services = ModernWeb.Services || (ModernWeb.Services = {}));
 })(ModernWeb || (ModernWeb = {}));
 /// <reference path="Base/ServiceBase.ts" />
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var ModernWeb;
 (function (ModernWeb) {
     var Services;
@@ -72,9 +77,41 @@ var ModernWeb;
             };
             DialogService.$inject = [];
             return DialogService;
-        })(Services.ServiceBase);
+        }(Services.ServiceBase));
         Services.DialogService = DialogService;
     })(Services = ModernWeb.Services || (ModernWeb.Services = {}));
+})(ModernWeb || (ModernWeb = {}));
+var ModernWeb;
+(function (ModernWeb) {
+    var Filters;
+    (function (Filters) {
+        'use strict';
+        function Range() {
+            return function (out, args) {
+                var min = args[0];
+                var max = args[1];
+                var step = args[2] || 1;
+                for (var i = min; i < max; i += step) {
+                    out.push(i);
+                }
+                return out;
+            };
+        }
+        Filters.Range = Range;
+    })(Filters = ModernWeb.Filters || (ModernWeb.Filters = {}));
+})(ModernWeb || (ModernWeb = {}));
+var ModernWeb;
+(function (ModernWeb) {
+    var Filters;
+    (function (Filters) {
+        'use strict';
+        function Splice() {
+            return function (input, start, howMany) {
+                input.splice(start, howMany);
+            };
+        }
+        Filters.Splice = Splice;
+    })(Filters = ModernWeb.Filters || (ModernWeb.Filters = {}));
 })(ModernWeb || (ModernWeb = {}));
 /// <reference path="../../ModernWeb.ts" />
 var ModernWeb;
@@ -90,7 +127,7 @@ var ModernWeb;
             function BaseDirective() {
             }
             return BaseDirective;
-        })();
+        }());
         Directives.BaseDirective = BaseDirective;
     })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -132,7 +169,7 @@ var ModernWeb;
             };
             BaseController.SERVER_ERRORS = "errorsServer";
             return BaseController;
-        })();
+        }());
         Controllers.BaseController = BaseController;
     })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -150,7 +187,7 @@ var ModernWeb;
                 this.scope = scope;
             }
             return BaseBO;
-        })();
+        }());
         Business.BaseBO = BaseBO;
     })(Business = ModernWeb.Business || (ModernWeb.Business = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -186,7 +223,7 @@ var ModernWeb;
                 this.model.numberAnimated = 0;
             };
             return AnimateNumberBO;
-        })(Business.BaseBO);
+        }(Business.BaseBO));
         Business.AnimateNumberBO = AnimateNumberBO;
     })(Business = ModernWeb.Business || (ModernWeb.Business = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -253,7 +290,7 @@ var ModernWeb;
             };
             AnimateNumberController.$inject = ['$scope', '$window', '$interval'];
             return AnimateNumberController;
-        })(Controllers.BaseController);
+        }(Controllers.BaseController));
         Controllers.AnimateNumberController = AnimateNumberController;
     })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -288,7 +325,7 @@ var ModernWeb;
                 return directive;
             };
             return AnimateNumberDirective;
-        })(Directives.BaseDirective);
+        }(Directives.BaseDirective));
         Directives.AnimateNumberDirective = AnimateNumberDirective;
     })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -308,7 +345,7 @@ var ModernWeb;
             }
             ProgressController.$inject = ['$scope'];
             return ProgressController;
-        })(Controllers.BaseController);
+        }(Controllers.BaseController));
         Controllers.ProgressController = ProgressController;
     })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -342,7 +379,7 @@ var ModernWeb;
                 return directive;
             };
             return ProgressDirective;
-        })(Directives.BaseDirective);
+        }(Directives.BaseDirective));
         Directives.ProgressDirective = ProgressDirective;
     })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -376,7 +413,7 @@ var ModernWeb;
                 }
             };
             return ProgressBarBO;
-        })(Business.BaseBO);
+        }(Business.BaseBO));
         Business.ProgressBarBO = ProgressBarBO;
     })(Business = ModernWeb.Business || (ModernWeb.Business = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -436,7 +473,7 @@ var ModernWeb;
             };
             ProgressBarController.$inject = ['$scope'];
             return ProgressBarController;
-        })(Controllers.BaseController);
+        }(Controllers.BaseController));
         Controllers.ProgressBarController = ProgressBarController;
     })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -469,7 +506,7 @@ var ModernWeb;
                 return directive;
             };
             return ProgressBarDirective;
-        })(Directives.BaseDirective);
+        }(Directives.BaseDirective));
         Directives.ProgressBarDirective = ProgressBarDirective;
     })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -502,7 +539,7 @@ var ModernWeb;
                 this.model.isPaused = false;
             };
             return ProgressBarAnimatedBO;
-        })(Business.BaseBO);
+        }(Business.BaseBO));
         Business.ProgressBarAnimatedBO = ProgressBarAnimatedBO;
     })(Business = ModernWeb.Business || (ModernWeb.Business = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -544,7 +581,7 @@ var ModernWeb;
             };
             ProgressBarAnimatedController.$inject = ['$scope'];
             return ProgressBarAnimatedController;
-        })(Controllers.BaseController);
+        }(Controllers.BaseController));
         Controllers.ProgressBarAnimatedController = ProgressBarAnimatedController;
     })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -578,7 +615,7 @@ var ModernWeb;
                 return directive;
             };
             return ProgressBarAnimatedDirective;
-        })(Directives.BaseDirective);
+        }(Directives.BaseDirective));
         Directives.ProgressBarAnimatedDirective = ProgressBarAnimatedDirective;
     })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -654,7 +691,7 @@ var ModernWeb;
                 configurable: true
             });
             return TimerBO;
-        })(Business.BaseBO);
+        }(Business.BaseBO));
         Business.TimerBO = TimerBO;
     })(Business = ModernWeb.Business || (ModernWeb.Business = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -936,7 +973,7 @@ var ModernWeb;
             };
             CarouselBO.counter = 0;
             return CarouselBO;
-        })(Business.BaseBO);
+        }(Business.BaseBO));
         Business.CarouselBO = CarouselBO;
     })(Business = ModernWeb.Business || (ModernWeb.Business = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1071,7 +1108,7 @@ var ModernWeb;
             });
             CarouselController.$inject = ['$scope', '$element', '$timeout'];
             return CarouselController;
-        })(Controllers.BaseController);
+        }(Controllers.BaseController));
         Controllers.CarouselController = CarouselController;
     })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1108,7 +1145,7 @@ var ModernWeb;
                 return directive;
             };
             return CarouselDirective;
-        })(Directives.BaseDirective);
+        }(Directives.BaseDirective));
         Directives.CarouselDirective = CarouselDirective;
     })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1152,7 +1189,7 @@ var ModernWeb;
                 return directive;
             };
             return SlideDirective;
-        })(Directives.BaseDirective);
+        }(Directives.BaseDirective));
         Directives.SlideDirective = SlideDirective;
     })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1199,7 +1236,7 @@ var ModernWeb;
                 this.model.isOpen = false;
             };
             return DialogBO;
-        })(Business.BaseBO);
+        }(Business.BaseBO));
         Business.DialogBO = DialogBO;
     })(Business = ModernWeb.Business || (ModernWeb.Business = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1244,7 +1281,7 @@ var ModernWeb;
             };
             DialogController.$inject = ['$scope', 'dialogService'];
             return DialogController;
-        })(Controllers.BaseController);
+        }(Controllers.BaseController));
         Controllers.DialogController = DialogController;
     })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1281,7 +1318,7 @@ var ModernWeb;
                 return directive;
             };
             return DialogDirective;
-        })(Directives.BaseDirective);
+        }(Directives.BaseDirective));
         Directives.DialogDirective = DialogDirective;
     })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1320,7 +1357,7 @@ var ModernWeb;
                 return directive;
             };
             return WizardDirective;
-        })(Directives.BaseDirective);
+        }(Directives.BaseDirective));
         Directives.WizardDirective = WizardDirective;
     })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1336,6 +1373,7 @@ var ModernWeb;
         var StepDirective = (function (_super) {
             __extends(StepDirective, _super);
             function StepDirective() {
+                var _this = this;
                 _super.call(this);
                 this.require = '^mwWizard';
                 this.transclude = true;
@@ -1349,38 +1387,41 @@ var ModernWeb;
                     Validate: "&validate"
                 };
                 this.link = function (scope, element, attributs, wizardCtrl) {
-                    // Default Value
-                    if (!angular.isDefined(scope.Valid)) {
-                        scope.Valid = function () {
-                            return true;
-                        };
-                    }
-                    if (!angular.isDefined(scope.Validate)) {
-                        scope.Validate = function () {
-                            return;
-                        };
-                    }
-                    // Step methods
-                    scope.Next = function () {
-                        wizardCtrl.Next();
-                    };
-                    scope.Previous = function () {
-                        wizardCtrl.Previous();
-                    };
-                    scope.Select = function () {
-                        wizardCtrl.Select(scope.step.id);
-                    };
-                    scope.Finish = function (event) {
-                        wizardCtrl.Finish(event);
-                    };
-                    // Destroy
-                    scope.$on('$destroy', function () {
-                        wizardCtrl.RemoveStep(scope);
-                    });
-                    // Add step in Wizard
-                    wizardCtrl.AddStep(scope);
+                    _this.Link(scope, element, attributs, wizardCtrl);
                 };
             }
+            StepDirective.prototype.Link = function (scope, element, attributs, wizardCtrl) {
+                // Default Value
+                if (!angular.isDefined(scope.Valid)) {
+                    scope.Valid = function () {
+                        return true;
+                    };
+                }
+                if (!angular.isDefined(scope.Validate)) {
+                    scope.Validate = function () {
+                        return;
+                    };
+                }
+                // Step methods
+                scope.Next = function () {
+                    wizardCtrl.Next();
+                };
+                scope.Previous = function () {
+                    wizardCtrl.Previous();
+                };
+                scope.Select = function () {
+                    wizardCtrl.Select(scope.step.id);
+                };
+                scope.Finish = function (event) {
+                    wizardCtrl.Finish(event);
+                };
+                // Destroy
+                scope.$on('$destroy', function () {
+                    wizardCtrl.RemoveStep(scope);
+                });
+                // Add step in Wizard
+                wizardCtrl.AddStep(scope);
+            };
             StepDirective.Factory = function () {
                 var directive = function () {
                     return new StepDirective();
@@ -1389,7 +1430,7 @@ var ModernWeb;
                 return directive;
             };
             return StepDirective;
-        })(Directives.BaseDirective);
+        }(Directives.BaseDirective));
         Directives.StepDirective = StepDirective;
     })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1404,21 +1445,393 @@ var ModernWeb;
             ========================================================================== */
         var GridController = (function (_super) {
             __extends(GridController, _super);
-            function GridController($scope, $element, $odataresource) {
+            function GridController($scope, $element, $odataresource, $odata) {
+                var _this = this;
                 _super.call(this, $scope);
-                this.dataSource = $odataresource($element.attr('url'));
+                this.sortOrder = ModernWeb.SortDirection.Ascending;
+                this.odata = $odata;
+                this.ListDataType($scope.columns);
+                this.sortField = null;
+                this.sortIndex = null;
+                this.selectedRows = {};
+                this.cloneSelectedRows = {};
+                this.scope.hasPreviousRange = false;
+                this.scope.hasNextRange = false;
+                this.scope.hasPreviousPage = false;
+                this.scope.hasNextPage = false;
+                this.scope.hasFirstPage = false;
+                this.scope.hasLastPage = false;
+                this.scope.hasSearchBar = false;
+                this.scope.filterOperator = 'eq';
+                this.scope.filterValue = null;
+                this.scope.hasSelectedRow = false;
+                this.scope.isAdding = false;
+                this.scope.isEditing = false;
+                this.dataSource = $odataresource(this.scope.url, {}, {}, this.Option);
+                if (this.scope.pagination === undefined) {
+                    this.scope.isPageable = false;
+                }
+                else {
+                    this.scope.isPageable = true;
+                    this.scope.currentPage = 1;
+                    if (this.scope.pagination.pageSizes === undefined) {
+                        this.scope.pageSize = GridController.PAGE_SIZE;
+                    }
+                    else if (this.scope.pagination.indexPageSizes === undefined) {
+                        this.scope.pageSize = this.scope.pagination.pageSizes[0];
+                    }
+                    else {
+                        this.scope.pageSize = this.scope.pagination.pageSizes[this.scope.pagination.indexPageSizes];
+                    }
+                    if (this.scope.pagination.range === undefined) {
+                        this.scope.pageRange = GridController.PAGE_RANGE;
+                    }
+                    else {
+                        this.scope.pageRange = this.scope.pagination.range;
+                    }
+                }
+                $scope.grid = {
+                    cols: $scope.columns
+                };
+                this.scope.$watch(function () { return _this.result.$resolved; }, function (newValue, oldValue) {
+                    if (newValue === false)
+                        return;
+                    _this.Render();
+                });
+                this.RetrieveData();
             }
-            GridController.prototype.SynchronizeScroll = function () {
+            Object.defineProperty(GridController.prototype, "Option", {
+                get: function () {
+                    var option = {};
+                    option.isodatav4 = true;
+                    var keys = this.columnsType["keys"];
+                    if (keys != null) {
+                        var stringBuilder = '';
+                        keys.forEach(function (value, index, array) {
+                            if (index > 0)
+                                stringBuilder += ',';
+                            stringBuilder += value;
+                        });
+                        option.odatakey = stringBuilder;
+                    }
+                    return option;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            GridController.prototype.Render = function () {
+                var _this = this;
+                if (this.scope.isPageable) {
+                    var resultCount;
+                    if (this.result.length === 0) {
+                        resultCount = 0;
+                        this.scope.currentPage = 0;
+                    }
+                    else if (this.scope.pageSize === 0) {
+                        resultCount = 1;
+                        this.scope.currentPage = 1;
+                    }
+                    else {
+                        resultCount = this.result.count / this.scope.pageSize;
+                    }
+                    this.scope.total = Math.ceil(resultCount);
+                    this.scope.hasPreviousRange = (this.scope.currentPage > this.scope.pageRange);
+                    this.scope.hasNextRange = Math.ceil(this.scope.total / this.scope.pageRange) > Math.ceil(this.scope.currentPage / this.scope.pageRange);
+                    this.scope.hasFirstPage = this.scope.hasPreviousPage = (this.scope.currentPage > 1);
+                    this.scope.hasLastPage = this.scope.hasNextPage = (this.scope.currentPage < this.scope.total);
+                    var rangeCeil = Math.ceil(this.scope.currentPage / this.scope.pageRange);
+                    var range = (rangeCeil === 0) ? 1 : rangeCeil;
+                    this.scope.startPage = (range - 1) * this.scope.pageRange;
+                    this.scope.endPage = this.scope.startPage + this.scope.pageRange;
+                    if (this.scope.endPage > this.scope.total) {
+                        this.scope.endPage = this.scope.total;
+                    }
+                    if (this.scope.currentPage > this.scope.endPage) {
+                        this.scope.currentPage = this.scope.endPage;
+                    }
+                }
+                this.scope.grid.rows = new Array(this.result.length);
+                this.result.forEach(function (value, index, array) {
+                    var row = {
+                        isEditing: false,
+                        isSelected: false,
+                        data: value
+                    };
+                    _this.scope.grid.rows[index] = row;
+                });
             };
-            GridController.prototype.Sort = function (field) {
-                //var character = this.odataresource('/odata/Characters/:characterId', { characterId: '@id' });
-                //var character = this.odataresource('/odata/Characters');
-                var ryu = this.dataSource.odata().filter("Name", "Ryu").query();
-                console.log(ryu);
+            GridController.prototype.ListDataType = function (columns) {
+                var _this = this;
+                this.columnsType = {};
+                columns.forEach(function (value, index, array) {
+                    if (value.isFiltrable) {
+                        if (!(value.type in _this.columnsType)) {
+                            _this.columnsType[value.type] = new Array();
+                        }
+                        _this.columnsType[value.type].push(value.field);
+                    }
+                    if (value.isPrimaryKey) {
+                        if (_this.columnsType["keys"] == null) {
+                            _this.columnsType["keys"] = new Array();
+                        }
+                        _this.columnsType["keys"].push(value.field);
+                    }
+                });
             };
-            GridController.$inject = ['$scope', '$element', '$odataresource'];
+            GridController.prototype.RetrieveData = function () {
+                this.result = this.BuildQuery(this.dataSource.odata()).query();
+            };
+            GridController.prototype.Refresh = function () {
+                this.selectedRows = {};
+                this.RetrieveData();
+            };
+            GridController.prototype.Page = function (page) {
+                this.scope.currentPage = page;
+                this.Refresh();
+            };
+            GridController.prototype.FirstPage = function () {
+                this.Page(1);
+            };
+            GridController.prototype.LastPage = function () {
+                this.Page(this.scope.total);
+            };
+            GridController.prototype.PreviousPage = function () {
+                if (this.scope.currentPage > 1) {
+                    this.Page(this.scope.currentPage - 1);
+                }
+            };
+            GridController.prototype.NextPage = function (page) {
+                if (this.scope.currentPage < this.scope.total) {
+                    this.Page(this.scope.currentPage + 1);
+                }
+            };
+            GridController.prototype.PreviousRange = function () {
+                var rs = (this.scope.currentPage % this.scope.pageRange);
+                if (rs == 0)
+                    rs = this.scope.pageRange;
+                this.Page(this.scope.currentPage - rs);
+            };
+            GridController.prototype.NextRange = function () {
+                var rs = this.scope.currentPage % this.scope.pageRange;
+                if (rs == 0)
+                    rs = this.scope.pageRange;
+                this.Page(this.scope.currentPage + (this.scope.pageRange - rs) + 1);
+            };
+            GridController.prototype.PageSize = function (pageSize) {
+                this.scope.pageSize = pageSize;
+                this.scope.currentPage = 1;
+                this.Refresh();
+            };
+            GridController.prototype.Filter = function () {
+                this.scope.currentPage = 1;
+                this.Refresh();
+            };
+            GridController.prototype.Sort = function (index, field) {
+                var column = this.scope.columns[this.sortIndex];
+                if (this.sortField === field) {
+                    if (this.sortOrder === ModernWeb.SortDirection.Ascending) {
+                        this.sortOrder = ModernWeb.SortDirection.Descending;
+                        column.isAsc = false;
+                    }
+                    else {
+                        this.sortOrder = ModernWeb.SortDirection.Ascending;
+                        column.isAsc = true;
+                    }
+                }
+                else {
+                    if (column !== undefined) {
+                        column.isSorted = false;
+                    }
+                    this.sortOrder = ModernWeb.SortDirection.Ascending;
+                    column = this.scope.columns[index];
+                    column.isSorted = true;
+                    column.isAsc = true;
+                }
+                this.sortIndex = index;
+                this.sortField = field;
+                this.Refresh();
+            };
+            GridController.prototype.BuildQuery = function (query) {
+                // Search
+                if (this.scope.filterValue != null && this.scope.filterValue != undefined && this.scope.filterValue.trim().length > 0) {
+                    var value;
+                    var predicates = [];
+                    if (this.scope.filterValue.toLowerCase() === 'true' || this.scope.filterValue.toLowerCase() === 'false') {
+                        value = new Boolean(this.scope.filterValue);
+                        this.FilterPredicate(predicates, query, 'Boolean', value, this.scope.filterOperator);
+                    }
+                    else if (parseInt(this.scope.filterValue, 10)) {
+                        value = new Number(this.scope.filterValue);
+                        this.FilterPredicate(predicates, query, 'Int32', value, this.scope.filterOperator);
+                        this.FilterMethod(predicates, query, 'String', this.scope.filterValue, 'contains');
+                    }
+                    else if (parseFloat(this.scope.filterValue)) {
+                        value = new Number(this.scope.filterValue);
+                        this.FilterPredicate(predicates, query, 'Single', value, this.scope.filterOperator);
+                    }
+                    else if (GridController.DATE_REGEX.test(this.scope.filterValue)) {
+                        value = new Date(this.scope.filterValue);
+                        this.FilterPredicate(predicates, query, 'DateTime', value, this.scope.filterOperator);
+                    }
+                    else {
+                        value = this.scope.filterValue;
+                        this.FilterMethod(predicates, query, 'String', value, 'contains');
+                    }
+                    var combination = this.odata.Predicate.or(predicates);
+                    query = query.filter(combination);
+                }
+                // Page
+                if (this.scope.isPageable && this.scope.pageSize > 0) {
+                    if (this.scope.currentPage > 1) {
+                        var skip = (this.scope.currentPage - 1) * this.scope.pageSize;
+                        query = query.skip(skip);
+                    }
+                    query = query.take(this.scope.pageSize);
+                    query = query.withInlineCount();
+                }
+                // Sort
+                if (this.sortField !== null) {
+                    query = query.orderBy(this.sortField, this.MapSort(this.sortOrder));
+                }
+                return query;
+            };
+            GridController.prototype.FilterPredicate = function (predicates, query, type, value, operator) {
+                for (var i = 0, max = this.columnsType[type].length; i < max; i++) {
+                    var predicate = new this.odata.Predicate(this.columnsType[type][i], operator, value);
+                    predicates.push(predicate);
+                }
+            };
+            GridController.prototype.FilterMethod = function (predicates, query, type, value, method) {
+                for (var i = 0, max = this.columnsType[type].length; i < max; i++) {
+                    var methodCall = new this.odata.Func(method, this.columnsType[type][i], value);
+                    predicates.push(methodCall);
+                }
+            };
+            GridController.prototype.MapSort = function (order) {
+                return (order === ModernWeb.SortDirection.Ascending) ?
+                    "asc" :
+                    "desc";
+            };
+            GridController.prototype.ToggleSearchBar = function () {
+                this.scope.hasSearchBar = !this.scope.hasSearchBar;
+            };
+            GridController.prototype.ToggleNewRow = function () {
+                this.scope.isAdding = !this.scope.isAdding;
+            };
+            GridController.prototype.SelectAllRows = function () {
+                var _this = this;
+                this.scope.hasSelectedRow = true;
+                this.scope.grid.rows.forEach(function (value, index, array) {
+                    _this.selectedRows[index] = value;
+                    value.isSelected = true;
+                });
+            };
+            GridController.prototype.UnselectAllRows = function () {
+                var _this = this;
+                this.scope.hasSelectedRow = false;
+                this.scope.isEditing = false;
+                var keys = Object.keys(this.selectedRows);
+                keys.forEach(function (key, index, array) {
+                    if (Object.keys(_this.cloneSelectedRows).length > 0) {
+                        // restore original row
+                        angular.copy(_this.cloneSelectedRows[key], _this.selectedRows[key]);
+                    }
+                    var row = _this.selectedRows[key];
+                    row.isSelected = false;
+                    row.isEditing = false;
+                    delete _this.selectedRows[key];
+                });
+            };
+            GridController.prototype.DeleteSelectedRows = function () {
+                var _this = this;
+                var keys = Object.keys(this.selectedRows);
+                keys.forEach(function (key, index, array) {
+                    var row = _this.selectedRows[key];
+                    row.data.$delete().then(function (promiseValue) {
+                        // Refresh on last item
+                        if (index + 1 == keys.length) {
+                            // Check if last page and all elements deleted
+                            if (_this.scope.currentPage == _this.scope.total && keys.length == _this.scope.pageSize) {
+                                _this.PreviousPage();
+                            }
+                            else {
+                                _this.Refresh();
+                            }
+                        }
+                    });
+                    _this.scope.hasSelectedRow = false;
+                });
+            };
+            GridController.prototype.EditSelectedRows = function () {
+                var _this = this;
+                this.scope.isEditing = true;
+                angular.copy(this.selectedRows, this.cloneSelectedRows);
+                var keys = Object.keys(this.selectedRows);
+                keys.forEach(function (key, index, array) {
+                    var row = _this.selectedRows[key];
+                    row.isEditing = true;
+                });
+            };
+            GridController.prototype.SaveEditSelectedRows = function () {
+                var _this = this;
+                this.scope.isEditing = false;
+                var keys = Object.keys(this.selectedRows);
+                keys.forEach(function (key, index, array) {
+                    var row = _this.selectedRows[key];
+                    row.data.$update().then(function (promiseValue) {
+                        // TODO Handle error
+                        // Refresh on last item
+                        //if (index + 1 == keys.length) {
+                        //    this.Refresh();
+                        //}
+                    });
+                    row.isEditing = false;
+                });
+            };
+            GridController.prototype.CancelEditSelectedRows = function () {
+                var _this = this;
+                this.scope.isEditing = false;
+                var keys = Object.keys(this.selectedRows);
+                keys.forEach(function (key, index, array) {
+                    // restore original row
+                    angular.copy(_this.cloneSelectedRows[index], _this.selectedRows[index]);
+                    var row = _this.selectedRows[key];
+                    row.isEditing = false;
+                });
+            };
+            GridController.prototype.ToggleSelectRow = function (index) {
+                var row = this.selectedRows[index];
+                if (row != null) {
+                    // row already selected
+                    // restore original row
+                    angular.copy(this.cloneSelectedRows[index], this.selectedRows[index]);
+                    delete this.selectedRows[index];
+                    delete this.cloneSelectedRows[index];
+                    row.isSelected = false;
+                    row.isEditing = false;
+                    // If any more selected rows
+                    if (Object.keys(this.selectedRows).length == 0) {
+                        this.scope.hasSelectedRow = false;
+                        this.scope.isEditing = false;
+                    }
+                }
+                else {
+                    // new row selected
+                    if (Object.keys(this.selectedRows).length == 0) {
+                        this.scope.hasSelectedRow = true;
+                    }
+                    row = this.scope.grid.rows[index];
+                    this.selectedRows[index] = row;
+                    row.isSelected = true;
+                }
+            };
+            //private datePattern: string = '/[0-3]?[0-9](\/|-|\\)[0-1]?[0-9](\/|-|\\)[0-2]?[0-9]?[0-9][0-9]/';
+            GridController.DATE_REGEX = /((?=\d{4})\d{4}|(?=[a-zA-Z]{3})[a-zA-Z]{3}|\d{2})((?=\/)\/|\-)((?=[0-9]{2})[0-9]{2}|(?=[0-9]{1,2})[0-9]{1,2}|[a-zA-Z]{3})((?=\/)\/|\-)((?=[0-9]{4})[0-9]{4}|(?=[0-9]{2})[0-9]{2}|[a-zA-Z]{3})/;
+            GridController.PAGE_SIZE = 10;
+            GridController.PAGE_RANGE = 5;
+            GridController.$inject = ['$scope', '$element', '$odataresource', '$odata'];
             return GridController;
-        })(Controllers.BaseController);
+        }(Controllers.BaseController));
         Controllers.GridController = GridController;
     })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1442,32 +1855,17 @@ var ModernWeb;
                 this.transclude = true;
                 this.replace = true;
                 this.templateUrl = function (element, attributs) {
-                    return attributs.templateUrl || Directives.TEMPLATES_PATH + 'Grid/Grid.html';
-                };
-                this.link = function ($scope, $element, attributs) {
-                    $scope.grid = {
-                        cols: $scope.columns,
-                        rows: {}
-                    };
-                    $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: $scope.url,
-                        async: false
-                    }).done(function (data) {
-                        $scope.grid.rows = data;
-                    }).fail(function () {
-                        //TODO Manage error
-                        //console.log();
-                    });
+                    return attributs.templateUrl || '/lib/modernWeb/templates/Grid/Grid.html';
                 };
                 this.controller = "GridController";
                 this.controllerAs = "GridCtrl";
                 this.scope = {
                     url: '@',
                     columns: '=',
-                    isPageable: '=pageable',
-                    isFilterable: '=filterable'
+                    pagination: '=',
+                    sortable: '=',
+                    filterable: '=',
+                    selectable: '='
                 };
             }
             GridDirective.Factory = function () {
@@ -1478,7 +1876,7 @@ var ModernWeb;
                 return directive;
             };
             return GridDirective;
-        })(Directives.BaseDirective);
+        }(Directives.BaseDirective));
         Directives.GridDirective = GridDirective;
     })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1517,7 +1915,7 @@ var ModernWeb;
             };
             InsertController.$inject = ['$scope', '$element', '$templateRequest', '$compile'];
             return InsertController;
-        })(Controllers.BaseController);
+        }(Controllers.BaseController));
         Controllers.InsertController = InsertController;
     })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1582,7 +1980,7 @@ var ModernWeb;
             };
             RemoteDialogController.$inject = ['$scope', '$element', 'dialogService', '$templateRequest', '$compile'];
             return RemoteDialogController;
-        })(Controllers.DialogController);
+        }(Controllers.DialogController));
         Controllers.RemoteDialogController = RemoteDialogController;
     })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1718,7 +2116,7 @@ var ModernWeb;
             };
             WizardBO.counter = 0;
             return WizardBO;
-        })(Business.BaseBO);
+        }(Business.BaseBO));
         Business.WizardBO = WizardBO;
     })(Business = ModernWeb.Business || (ModernWeb.Business = {}));
 })(ModernWeb || (ModernWeb = {}));
@@ -1761,12 +2159,14 @@ var ModernWeb;
             };
             WizardController.$inject = ['$scope'];
             return WizardController;
-        })(Controllers.BaseController);
+        }(Controllers.BaseController));
         Controllers.WizardController = WizardController;
     })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
 })(ModernWeb || (ModernWeb = {}));
 /// <reference path="ModernWeb.ts" />
 /// <reference path="Services/DialogService.ts" />
+/// <reference path="Filters/RangeFilter.ts" />
+/// <reference path="Filters/SpliceFilter.ts" />
 /// <reference path="Directives/AnimateNumberDirective.ts" />
 /// <reference path="Directives/ProgressDirective.ts" />
 /// <reference path="Directives/ProgressBarDirective.ts" />
@@ -1801,6 +2201,8 @@ var ModernWeb;
             $rootScope.PlayDirection = ModernWeb.PlayDirection;
         }])
         .service('dialogService', ModernWeb.Services.DialogService)
+        .filter('range', ModernWeb.Filters.Range)
+        .filter('splice', ModernWeb.Filters.Splice)
         .directive('mwAnimateNumber', ModernWeb.Directives.AnimateNumberDirective.Factory())
         .directive('mwProgress', ModernWeb.Directives.ProgressDirective.Factory())
         .directive('mwProgressBar', ModernWeb.Directives.ProgressBarDirective.Factory())

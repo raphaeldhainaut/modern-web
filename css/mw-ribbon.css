@@ -240,11 +240,11 @@
   text-align: center;
   content: "\f0d7";
 }
-.mw-ribbon .mw-panel .mw-control.mw-disabled .mw-icon, .mw-ribbon .mw-panel .mw-control.mw-disabled .mw-label {
+.mw-ribbon .mw-panel .mw-control.mw-disabled, .mw-ribbon .mw-panel .mw-control[disabled] {
   cursor: default;
   color: #777;
 }
-.mw-ribbon .mw-panel .mw-control.mw-disabled:hover {
+.mw-ribbon .mw-panel .mw-control.mw-disabled:hover, .mw-ribbon .mw-panel .mw-control[disabled]:hover {
   cursor: default;
   border-color: #CCC !important;
   background-image: none !important;

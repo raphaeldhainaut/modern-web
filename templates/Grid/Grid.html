@@ -1,28 +1,236 @@
 ﻿<div class="mw-grid">
+
     <header class="mw-header">
         <h3 class="mw-title">Grid Title</h3>
     </header>
+
+    <div class="mw-menubar">
+        <div class="mw-ribbon">
+            <div class="mw-panels">
+                <div class="mw-panel mw-active" id="tab-action" ng-if="!isAdding && !isEditing">
+                    <div class="mw-section">
+                        <h5 class="mw-caption">Command</h5>
+                        <div class="mw-control" title="Add a row" ng-click="GridCtrl.ToggleNewRow()">
+                            <i class="fa fa-plus mw-size-150x"></i>
+                            <div class="mw-label">Add</div>
+                        </div>
+                        <div class="mw-control" title="Delete a row" ng-disabled="!hasSelectedRow" ng-click="GridCtrl.DeleteSelectedRows()">
+                            <i class="fa fa-remove mw-size-150x"></i>
+                            <div class="mw-label">Delete</div>
+                        </div>
+                        <div class="mw-control" title="Edit a row" ng-disabled="!hasSelectedRow" ng-click="GridCtrl.EditSelectedRows()">
+                            <i class="fa fa-edit mw-size-150x"></i>
+                            <div class="mw-label">Edit</div>
+                        </div>
+                        <div class="mw-control mw-submenu" title="Mark a row as" ng-disabled="!hasSelectedRow">
+                            <i class="fa fa-check mw-size-150x"></i>
+                            <div class="mw-label">Mark as</div>
+                        </div>
+                    </div>
+                    <div class="mw-section">
+                        <h5 class="mw-caption">Data</h5>
+                        <div class="mw-control" title="Select all rows" ng-click="GridCtrl.Refresh()">
+                            <i class="fa fa-refresh mw-size-150x"></i>
+                            <div class="mw-label">Refresh</div>
+                        </div>
+                    </div>
+                    <div ng-if="selectable" class="mw-section">
+                        <h5 class="mw-caption">Select</h5>
+                        <div class="mw-control" title="Select all rows" ng-click="GridCtrl.SelectAllRows()">
+                            <i class="fa fa-check-square-o mw-size-150x"></i>
+                            <div class="mw-label">Select all</div>
+                        </div>
+                        <div class="mw-control" title="Select any rows" ng-click="GridCtrl.UnselectAllRows()">
+                            <i class="fa fa-square-o mw-size-150x"></i>
+                            <div class="mw-label">Select none</div>
+                        </div>
+                    </div>
+                    <div class="mw-section">
+                        <h5 class="mw-caption">View</h5>
+                        <div class="mw-control" title="Table View">
+                            <i class="fa fa-table mw-size-150x"></i>
+                            <div class="mw-label">Table</div>
+                        </div>
+                        <div class="mw-control" title="Pane View">
+                            <i class="fa fa-list layout mw-size-150x"></i>
+                            <div class="mw-label">Pane</div>
+                        </div>
+                        <div class="mw-control" title="Tile View">
+                            <i class="fa fa-th layout mw-size-150x"></i>
+                            <div class="mw-label">Tile</div>
+                        </div>
+                    </div>
+                    <div class="mw-section mw-section-right pull-right">
+                        <h5 class="mw-caption">Search</h5>
+                        <div class="mw-control mw-submenu" title="Sort the rows">
+                            <i class="fa fa-filter mw-size-150x"></i>
+                            <div class="mw-label">Filter By</div>
+                        </div>
+                        <div class="mw-control" title="Filter the rows" ng-click="GridCtrl.ToggleSearchBar()">
+                            <i class="fa fa-search mw-size-150x"></i>
+                            <div class="mw-label">Search</div>
+                        </div>
+                    </div>
+                    <div class="mw-section mw-section-right pull-right">
+                        <h5 class="mw-caption">Sort</h5>
+                        <div class="mw-control mw-submenu" title="Sort the rows">
+                            <i class="fa fa-sort-alpha-asc mw-size-150x"></i>
+                            <div class="mw-label">Sort By</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-insert" class="mw-panel mw-active" ng-if="isAdding">
+                    <div class="mw-section">
+                        <h5 class="mw-caption">Add</h5>
+                        <div class="mw-control" title="Save">
+                            <i class="fa fa-check mw-size-150x"></i>
+                            <div class="mw-label">Save</div>
+                        </div>
+                        <div class="mw-control" title="Cancel" ng-click="GridCtrl.ToggleNewRow()">
+                            <i class="fa fa-remove mw-size-150x"></i>
+                            <div class="mw-label">Cancel</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-edit" class="mw-panel mw-active" ng-if="isEditing">
+                    <div class="mw-section">
+                        <h5 class="mw-caption">Edit</h5>
+                        <div class="mw-control" title="Save" ng-click="GridCtrl.SaveEditSelectedRows()">
+                            <i class="fa fa-check mw-size-150x"></i>
+                            <div class="mw-label">Save</div>
+                        </div>
+                        <div class="mw-control" title="Cancel" ng-click="GridCtrl.CancelEditSelectedRows()">
+                            <i class="fa fa-remove mw-size-150x"></i>
+                            <div class="mw-label">Cancel</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mw-searchbar u-clearfix" ng-show="hasSearchBar">
+            <select class="form-control u-pull-left" role="menu" ng-model="filterOperator" style="width: 25%;">
+                <optgroup label="Search By">
+                    <option value="eq" selected>Equal (=)</option>
+                    <option value="ne">Not equal (!=)</option>
+                    <option value="gt">Greater than (&gt;)</option>
+                    <option value="ge">Greater than or equal (&gt;=)</option>
+                    <option value="lt">Less than (&lt;)</option>
+                    <option value="le">Less than or equal (&lt;=)</option>
+                </optgroup>
+            </select>
+            <div class="u-pull-left u-clearfix" style="width: 75%;">
+                <input type="text" class="form-control u-pull-left" name="search" placeholder="Search ..." ng-model="filterValue" style="width: calc(100% - 40px);">
+                <span class="u-pull-left" style="width: 40px;">
+                    <button class="btn btn-default" type="button" ng-click="GridCtrl.Filter()" style="width: 40px;">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+
     <div class="mw-body">
         <table class="table table-striped mw-table">
             <colgroup>
-                <col ng-repeat="col in grid.cols"/>
+                <col ng-if="selectable" />
+                <col ng-repeat="col in grid.cols" />
             </colgroup>
             <thead>
                 <tr>
-                    <th ng-repeat="col in grid.cols" ng-class="{'mw-sortable':col.isSortable, 'mw-sorted':true, 'mw-up':true, 'mw-down':false}">
-                        <a ng-if="col.isSortable" href="#" ng-click="GridCtrl.Sort(col.field)">{{col.title}}</a>
+                    <th ng-if="selectable" class="col-sm-1"></th>
+                    <th ng-repeat="col in grid.cols" ng-init="col.isSorted=false;col.isAsc=false;" ng-class="{'mw-sortable':col.isSortable, 'mw-sorted':col.isSorted, 'mw-up':col.isSorted && col.isAsc, 'mw-down':col.isSorted && !col.isAsc}">
+                        <a ng-if="col.isSortable" href="#" ng-click="GridCtrl.Sort($index, col.field)">{{col.title}}</a>
                         <span ng-if="!col.isSortable">{{col.title}}</span>
                     </th>
                 </tr>
             </thead>
             <tbody>
+                <tr ng-if="isAdding">
+                    <td ng-repeat="col in grid.cols" ng-switch="col.type">
+                        <input ng-switch-when="Boolean" type="checkbox"/>
+                        <input ng-switch-when="Int32" type="number"/>
+                        <input ng-switch-when="Single" type="number" />
+                        <input ng-switch-when="DateTime" type="datetime"/>
+                        <input ng-switch-when="String" type="text"/>
+                    </td>
+                </tr>
                 <tr ng-repeat="row in grid.rows">
-                    <td ng-repeat="col in grid.cols">{{row[col.field]}}</td>
+                    <td ng-if="selectable">
+                        <input type="checkbox" ng-checked="row.isSelected" ng-click="GridCtrl.ToggleSelectRow($index)"/>
+                    </td>
+                    <td ng-repeat="col in grid.cols">
+                        <div ng-if="col.isEditable && row.isEditing" ng-switch="col.type">
+                            <input ng-switch-when="Boolean" type="checkbox" ng-model="row.data[col.field]" />
+                            <input ng-switch-when="Int32" type="number" ng-model="row.data[col.field]" />
+                            <input ng-switch-when="Single" type="number" ng-model="row.data[col.field]" />
+                            <input ng-switch-when="DateTime" type="datetime" ng-model="row.data[col.field]" />
+                            <input ng-switch-when="String" type="text" ng-model="row.data[col.field]" />
+                        </div>
+                        <div ng-if="!col.isEditable || !row.isEditing">{{row.data[col.field]}}</div>
+                    </td>
+                </tr>
+                <tr ng-if="grid.rows.length === 0">
+                    <td colspan="{{grid.cols.length}}">Any results</td>
                 </tr>
             </tbody>
         </table>
     </div>
+
     <footer class="mw-footer">
-        <div class="mw-legend mw-text-right">{{grid.rows.length}} items</div>
+        <div class="row">
+            <div ng-if="isPageable" class="col-sm-9">
+                <nav class="clearfix">
+                    <ul class="pagination mw-pagination pull-left">
+                        <li ng-class="{'disabled': !hasFirstPage}" ng-click="GridCtrl.FirstPage()" title="first">
+                            <a href="#" aria-label="First">
+                                <span aria-hidden="true"><i class="glyphicon glyphicon-step-backward"></i></span>
+                            </a>
+                        </li>
+                        <li ng-class="{'disabled': !hasPreviousPage}" ng-click="GridCtrl.PreviousPage()" title="previous">
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true"><i class="glyphicon glyphicon-triangle-left"></i></span>
+                            </a>
+                        </li>
+                        <li ng-if="hasPreviousRange" ng-click="GridCtrl.PreviousRange()">
+                            <a href="#">...</a>
+                        </li>
+                        <li ng-repeat="page in [] | range:[startPage,endPage]" ng-class="{'active': (page+1 == currentPage)}" ng-click="GridCtrl.Page(page+1)">
+                            <a href="#">{{page+1}}</a>
+                        </li>
+                        <li ng-if="hasNextRange" ng-click="GridCtrl.NextRange()">
+                            <a href="#">...</a>
+                        </li>
+                        <li ng-class="{'disabled': !hasNextPage}" ng-click="GridCtrl.NextPage()" title="next">
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true"><i class="glyphicon glyphicon-triangle-right"></i></span>
+                            </a>
+                        </li>
+                        <li ng-class="{'disabled': !hasLastPage}" ng-click="GridCtrl.LastPage()" title="last">
+                            <a href="#" aria-label="Last">
+                                <span aria-hidden="true"><i class="glyphicon glyphicon-step-forward"></i></span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownRange" data-toggle="dropdown">
+                        {{pageSize === 0 ? "All" : pageSize}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="pageSize in pagination.pageSizes" ng-click="GridCtrl.PageSize(pageSize)">
+                            <a href="#">{{pageSize === 0 ? "All" : pageSize}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-2 col-sm-offset-1">
+                <div class="mw-legend pull-right">
+                    <div ng-if="grid.rows.length === 0">Any results</div>
+                    <div ng-if="grid.rows.length > 0">page {{currentPage}} on {{total}}</div>
+                </div>
+            </div>
+        </div>
     </footer>
+
 </div>

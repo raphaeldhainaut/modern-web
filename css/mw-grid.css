@@ -45,6 +45,13 @@
 
 /* Structure (headers, contents)
    ========================================================================== */
+.mw-grid input {
+  border-radius: 0;
+}
+.mw-grid .form-control {
+  border-radius: 0;
+}
+
 /* Grid Table
    ========================================================================== */
 .mw-grid .mw-table {
@@ -73,6 +80,12 @@
    ========================================================================== */
 .mw-grid .btn {
   border-radius: 0;
+}
+
+/* Grid Searchbar
+   ========================================================================== */
+.mw-grid .mw-searchbar {
+  width: 100%;
 }
 
 /*# sourceMappingURL=mw-grid.css.map */
