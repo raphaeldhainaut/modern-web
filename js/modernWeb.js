@@ -1042,6 +1042,15 @@ var ModernWeb;
                         _this.Play();
                     }
                 });
+                // Watch slides.length
+                this.scope.$watch(function () { return _this.scope.slides.length; }, function (newValue, oldValue) {
+                    if (newValue != oldValue) {
+                        if (_this.scope.playType == ModernWeb.PlayType.Automatic) {
+                            // Start the carousel
+                            _this.Play();
+                        }
+                    }
+                });
             };
             CarouselController.prototype.AttachAnimationHandler = function (element) {
                 var _this = this;
