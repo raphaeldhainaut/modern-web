@@ -18,9 +18,6 @@
    Menu
    ========================================================================== */
 .mw-menu {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
   min-width: 155px;
   background-color: white;
   border: 1px solid #979797;
@@ -31,6 +28,28 @@
 .mw-menu.mw-contextual {
   position: absolute;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.mw-menu.mw-dropdown {
+  position: absolute;
+  z-index: 1;
+}
+
+.mw-menu.mw-popup {
+  position: absolute;
+  z-index: 1;
+  /*&::after {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      bottom: auto;
+      left: auto;
+      transform: translateX(50%) translateY(-50%) rotate(45deg);
+      margin: 0 -.5px 0 0;
+      border: none;
+      border-top: 1px solid #D4D4D5;
+      border-right: 1px solid #D4D4D5;
+  }*/
 }
 
 /* header 
@@ -59,21 +78,6 @@
 .mw-menu .mw-panes {
   padding: 2px;
 }
-.mw-menu .mw-panes:before {
-  display: inline-block;
-  height: calc(100% - 2px * 2);
-  width: 0;
-  content: " ";
-  position: absolute;
-  top: 2px;
-  left: 29px;
-  margin: 0;
-  padding: 0;
-  border-top: none;
-  border-bottom: none;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
-  border-right: 1px solid rgba(255, 255, 255, 0.8);
-}
 
 .mw-menu .mw-pane {
   border-color: transparent;
@@ -81,7 +85,6 @@
 }
 .mw-menu .mw-pane .mw-inner {
   padding: 5px 4px;
-  padding-left: calc(25px + (2 * 2px) + 4px);
   font-size: 14px;
 }
 .mw-menu .mw-pane .mw-inner .mw-title {
@@ -105,10 +108,30 @@
 
 /* divider 
    ========================================================================== */
-.mw-menu .mw-divider:not(.mw-vertical) {
+.mw-menu .mw-divider.mw-horizontal {
   width: calc(100% - 25px - 2px * 2);
   margin: 4px 0;
   margin-left: calc(25px + 4px);
+}
+
+.mw-menu.mw-divided::before {
+  display: inline-block;
+  height: calc(100% - 2px * 2);
+  width: 0;
+  content: " ";
+  position: absolute;
+  top: 2px;
+  left: 29px;
+  margin: 0;
+  padding: 0;
+  border-top: none;
+  border-bottom: none;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.mw-menu.mw-divided .mw-pane .mw-inner {
+  padding-left: calc(25px + (2 * 2px) + 4px);
 }
 
 /*# sourceMappingURL=mw-menu.css.map */

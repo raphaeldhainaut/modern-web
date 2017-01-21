@@ -10,71 +10,67 @@
                 <div class="mw-panel mw-active" id="tab-action" ng-if="!isAdding && !isEditing">
                     <div class="mw-section">
                         <h5 class="mw-caption">Command</h5>
-                        <div class="mw-control" title="Add a row" ng-click="GridCtrl.ToggleNewRow()">
-                            <i class="fa fa-plus mw-size-150x"></i>
+                        <div class="mw-control" title="Add a row" ng-click="GridCtrl.AddRow()">
+                            <i class="fa fa-plus mw-size-150"></i>
                             <div class="mw-label">Add</div>
                         </div>
-                        <div class="mw-control" title="Delete a row" ng-disabled="!hasSelectedRow" ng-click="GridCtrl.DeleteSelectedRows()">
-                            <i class="fa fa-remove mw-size-150x"></i>
+                        <div class="mw-control" title="Delete a row" ng-disabled="!hasSelectedRow" ng-click="GridCtrl.DeleteRows()">
+                            <i class="fa fa-remove mw-size-150"></i>
                             <div class="mw-label">Delete</div>
                         </div>
-                        <div class="mw-control" title="Edit a row" ng-disabled="!hasSelectedRow" ng-click="GridCtrl.EditSelectedRows()">
-                            <i class="fa fa-edit mw-size-150x"></i>
+                        <div class="mw-control" title="Edit a row" ng-disabled="!hasSelectedRow" ng-click="GridCtrl.EditRows()">
+                            <i class="fa fa-edit mw-size-150"></i>
                             <div class="mw-label">Edit</div>
-                        </div>
-                        <div class="mw-control mw-submenu" title="Mark a row as" ng-disabled="!hasSelectedRow">
-                            <i class="fa fa-check mw-size-150x"></i>
-                            <div class="mw-label">Mark as</div>
                         </div>
                     </div>
                     <div class="mw-section">
                         <h5 class="mw-caption">Data</h5>
                         <div class="mw-control" title="Select all rows" ng-click="GridCtrl.Refresh()">
-                            <i class="fa fa-refresh mw-size-150x"></i>
+                            <i class="fa fa-refresh mw-size-150"></i>
                             <div class="mw-label">Refresh</div>
                         </div>
                     </div>
                     <div ng-if="selectable" class="mw-section">
                         <h5 class="mw-caption">Select</h5>
                         <div class="mw-control" title="Select all rows" ng-click="GridCtrl.SelectAllRows()">
-                            <i class="fa fa-check-square-o mw-size-150x"></i>
+                            <i class="fa fa-check-square-o mw-size-150"></i>
                             <div class="mw-label">Select all</div>
                         </div>
-                        <div class="mw-control" title="Select any rows" ng-click="GridCtrl.UnselectAllRows()">
-                            <i class="fa fa-square-o mw-size-150x"></i>
+                        <div class="mw-control" title="Unselect all rows" ng-click="GridCtrl.UnselectAllRows()" ng-disabled="!hasSelectedRow">
+                            <i class="fa fa-square-o mw-size-150"></i>
                             <div class="mw-label">Select none</div>
                         </div>
                     </div>
                     <div class="mw-section">
                         <h5 class="mw-caption">View</h5>
                         <div class="mw-control" title="Table View">
-                            <i class="fa fa-table mw-size-150x"></i>
+                            <i class="fa fa-table mw-size-150"></i>
                             <div class="mw-label">Table</div>
                         </div>
                         <div class="mw-control" title="Pane View">
-                            <i class="fa fa-list layout mw-size-150x"></i>
+                            <i class="fa fa-list layout mw-size-150"></i>
                             <div class="mw-label">Pane</div>
                         </div>
                         <div class="mw-control" title="Tile View">
-                            <i class="fa fa-th layout mw-size-150x"></i>
+                            <i class="fa fa-th layout mw-size-150"></i>
                             <div class="mw-label">Tile</div>
                         </div>
                     </div>
                     <div class="mw-section mw-section-right pull-right">
                         <h5 class="mw-caption">Search</h5>
                         <div class="mw-control mw-submenu" title="Sort the rows">
-                            <i class="fa fa-filter mw-size-150x"></i>
+                            <i class="fa fa-filter mw-size-150"></i>
                             <div class="mw-label">Filter By</div>
                         </div>
                         <div class="mw-control" title="Filter the rows" ng-click="GridCtrl.ToggleSearchBar()">
-                            <i class="fa fa-search mw-size-150x"></i>
+                            <i class="fa fa-search mw-size-150"></i>
                             <div class="mw-label">Search</div>
                         </div>
                     </div>
                     <div class="mw-section mw-section-right pull-right">
                         <h5 class="mw-caption">Sort</h5>
                         <div class="mw-control mw-submenu" title="Sort the rows">
-                            <i class="fa fa-sort-alpha-asc mw-size-150x"></i>
+                            <i class="fa fa-sort-alpha-asc mw-size-150"></i>
                             <div class="mw-label">Sort By</div>
                         </div>
                     </div>
@@ -83,11 +79,11 @@
                     <div class="mw-section">
                         <h5 class="mw-caption">Add</h5>
                         <div class="mw-control" title="Save">
-                            <i class="fa fa-check mw-size-150x"></i>
+                            <i class="fa fa-check mw-size-150"></i>
                             <div class="mw-label">Save</div>
                         </div>
                         <div class="mw-control" title="Cancel" ng-click="GridCtrl.ToggleNewRow()">
-                            <i class="fa fa-remove mw-size-150x"></i>
+                            <i class="fa fa-remove mw-size-150"></i>
                             <div class="mw-label">Cancel</div>
                         </div>
                     </div>
@@ -95,12 +91,12 @@
                 <div id="tab-edit" class="mw-panel mw-active" ng-if="isEditing">
                     <div class="mw-section">
                         <h5 class="mw-caption">Edit</h5>
-                        <div class="mw-control" title="Save" ng-click="GridCtrl.SaveEditSelectedRows()">
-                            <i class="fa fa-check mw-size-150x"></i>
+                        <div class="mw-control" title="Save" ng-click="GridCtrl.SaveEditRows()">
+                            <i class="fa fa-check mw-size-150"></i>
                             <div class="mw-label">Save</div>
                         </div>
-                        <div class="mw-control" title="Cancel" ng-click="GridCtrl.CancelEditSelectedRows()">
-                            <i class="fa fa-remove mw-size-150x"></i>
+                        <div class="mw-control" title="Cancel" ng-click="GridCtrl.CancelEditRows()">
+                            <i class="fa fa-remove mw-size-150"></i>
                             <div class="mw-label">Cancel</div>
                         </div>
                     </div>
@@ -146,6 +142,9 @@
             </thead>
             <tbody>
                 <tr ng-if="isAdding">
+                    <!-- cell for checkbox -->
+                    <td ng-if="selectable"></td>
+                    <!-- cells for data -->
                     <td ng-repeat="col in grid.cols" ng-switch="col.type">
                         <input ng-switch-when="Boolean" type="checkbox"/>
                         <input ng-switch-when="Int32" type="number"/>
@@ -156,7 +155,7 @@
                 </tr>
                 <tr ng-repeat="row in grid.rows">
                     <td ng-if="selectable">
-                        <input type="checkbox" ng-checked="row.isSelected" ng-click="GridCtrl.ToggleSelectRow($index)"/>
+                        <input type="checkbox" ng-checked="row.isSelected" ng-disabled="isEditing" ng-click="GridCtrl.ToggleSelectRow($index)"/>
                     </td>
                     <td ng-repeat="col in grid.cols">
                         <div ng-if="col.isEditable && row.isEditing" ng-switch="col.type">
@@ -227,7 +226,7 @@
             <div class="col-sm-2 col-sm-offset-1">
                 <div class="mw-legend pull-right">
                     <div ng-if="grid.rows.length === 0">Any results</div>
-                    <div ng-if="grid.rows.length > 0">page {{currentPage}} on {{total}}</div>
+                    <div ng-if="grid.rows.length > 0">page {{currentPage}} on {{pageCount}}</div>
                 </div>
             </div>
         </div>

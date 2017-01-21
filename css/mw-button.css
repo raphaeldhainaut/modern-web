@@ -19,8 +19,6 @@
    ========================================================================= */
 .mw-button {
   font-size: 16px;
- /* Control
-========================================================================= */
 }
 .mw-button:disabled {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
@@ -30,30 +28,9 @@
 .mw-button:focus, .mw-button:active {
   outline: none;
 }
-.mw-button.mw-control {
-  background-color: transparent;
-  border: 1px solid #EDEDED;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.85) inset;
-  padding: 0;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=85);
-  opacity: 0.85;
-}
-.mw-button.mw-control:not(:disabled):hover, .mw-button.mw-control:not(:disabled):focus {
-  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-  opacity: 1;
-  border-color: #EAEAEA;
-}
-.mw-button.mw-control:not(:disabled):active {
-  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-  opacity: 1;
-  border-color: #EAEAEA;
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.15);
-}
-.mw-button.mw-control:disabled {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
-  opacity: 0.6;
-}
 
+/* Close button
+   ========================================================================= */
 .mw-button.mw-close {
   color: #D43F3a;
   font-size: 2.4rem;
@@ -63,12 +40,12 @@
   opacity: 1;
 }
 
-/* Shape
+/* Circular button
    ========================================================================= */
 .mw-button.mw-circular {
-  border-radius: 50%;
   width: 4.5rem;
   height: 4.5rem;
+  border-radius: 50%;
 }
 
 /*# sourceMappingURL=mw-button.css.map */

@@ -30,6 +30,13 @@ var ModernWeb;
         SortDirection[SortDirection["Descending"] = 1] = "Descending";
     })(ModernWeb.SortDirection || (ModernWeb.SortDirection = {}));
     var SortDirection = ModernWeb.SortDirection;
+    (function (AlertType) {
+        AlertType[AlertType["Success"] = 0] = "Success";
+        AlertType[AlertType["Info"] = 1] = "Info";
+        AlertType[AlertType["Warning"] = 2] = "Warning";
+        AlertType[AlertType["Danger"] = 3] = "Danger";
+    })(ModernWeb.AlertType || (ModernWeb.AlertType = {}));
+    var AlertType = ModernWeb.AlertType;
 })(ModernWeb || (ModernWeb = {}));
 /// <reference path="../../ModernWeb.ts" />
 var ModernWeb;
@@ -190,6 +197,97 @@ var ModernWeb;
         }());
         Business.BaseBO = BaseBO;
     })(Business = ModernWeb.Business || (ModernWeb.Business = {}));
+})(ModernWeb || (ModernWeb = {}));
+/// <reference path="Base/BaseBO.ts" />
+var ModernWeb;
+(function (ModernWeb) {
+    var Business;
+    (function (Business) {
+        'use strict';
+        /* ==========================================================================
+            AlertBO
+            ========================================================================== */
+        var AlertBO = (function (_super) {
+            __extends(AlertBO, _super);
+            function AlertBO(model) {
+                _super.call(this, model);
+                this.model = model;
+                this.model.alerts = new Array();
+            }
+            AlertBO.prototype.Add = function (alert) {
+                this.model.alerts.push(alert);
+            };
+            AlertBO.prototype.Remove = function (index) {
+                this.model.alerts.splice(index, 1);
+            };
+            return AlertBO;
+        }(Business.BaseBO));
+        Business.AlertBO = AlertBO;
+    })(Business = ModernWeb.Business || (ModernWeb.Business = {}));
+})(ModernWeb || (ModernWeb = {}));
+/// <reference path="Base/BaseController.ts" />
+/// <reference path="../Business/AlertBO.ts" />
+var ModernWeb;
+(function (ModernWeb) {
+    var Controllers;
+    (function (Controllers) {
+        'use strict';
+        /*  ==========================================================================
+            AlertController
+            ========================================================================== */
+        var AlertController = (function (_super) {
+            __extends(AlertController, _super);
+            function AlertController($scope) {
+                var _this = this;
+                _super.call(this, $scope);
+                this.scope.Close = function (index) {
+                    _this.Close(index);
+                };
+                this.alertBO = new ModernWeb.Business.AlertBO(this.scope);
+            }
+            AlertController.prototype.Push = function (alert) {
+                this.alertBO.Add(alert);
+            };
+            AlertController.prototype.Close = function (index) {
+                this.alertBO.Remove(index);
+            };
+            AlertController.$inject = ['$scope'];
+            return AlertController;
+        }(Controllers.BaseController));
+        Controllers.AlertController = AlertController;
+    })(Controllers = ModernWeb.Controllers || (ModernWeb.Controllers = {}));
+})(ModernWeb || (ModernWeb = {}));
+/// <reference path="Base/BaseDirective.ts" />
+/// <reference path="../Controllers/AlertController.ts" />
+var ModernWeb;
+(function (ModernWeb) {
+    var Directives;
+    (function (Directives) {
+        'use strict';
+        /* ==========================================================================
+            AlertDirective
+            ========================================================================== */
+        var AlertDirective = (function (_super) {
+            __extends(AlertDirective, _super);
+            function AlertDirective() {
+                _super.call(this);
+                this.transclude = true;
+                this.replace = true;
+                this.templateUrl = function (element, attributs) {
+                    return attributs.templateUrl || Directives.TEMPLATES_PATH + 'Alert/Alert.html';
+                };
+            }
+            AlertDirective.Factory = function () {
+                var directive = function () {
+                    return new AlertDirective();
+                };
+                directive["$inject"] = [];
+                return directive;
+            };
+            return AlertDirective;
+        }(Directives.BaseDirective));
+        Directives.AlertDirective = AlertDirective;
+    })(Directives = ModernWeb.Directives || (ModernWeb.Directives = {}));
 })(ModernWeb || (ModernWeb = {}));
 /// <reference path="Base/BaseBO.ts" />
 var ModernWeb;
@@ -1449,34 +1547,124 @@ var ModernWeb;
     var Controllers;
     (function (Controllers) {
         'use strict';
+        /*  Default config
+            ========================================================================== */
+        var gridConfig = {
+            hasSearchBehavior: true
+        };
         /* ==========================================================================
             GridController
             ========================================================================== */
         var GridController = (function (_super) {
             __extends(GridController, _super);
             function GridController($scope, $element, $odataresource, $odata) {
-                var _this = this;
                 _super.call(this, $scope);
                 this.sortOrder = ModernWeb.SortDirection.Ascending;
                 this.odata = $odata;
-                this.ListDataType($scope.columns);
-                this.sortField = null;
-                this.sortIndex = null;
+                // Reset
+                this.ResetBehaviors();
+                this.ResetSelectedRows();
+                this.ResetPagination();
+                this.ResetSort();
+                this.ResetSearchFilters();
+                this.SetDefaultValue();
+                this.SetWatches();
+                // Register in memory
+                this.RegisterDataType(this.scope.columns);
+                this.RegisterGridDataColumns();
+                // Initialize
+                this.InitializeODataResource($odataresource);
+                this.InitializePagination();
+                this.InitializeData();
+            }
+            Object.defineProperty(GridController.prototype, "Option", {
+                get: function () {
+                    var option = {};
+                    option.isodatav4 = true;
+                    var keys = this.columnsType["keys"];
+                    if (keys != null) {
+                        var stringBuilder = '';
+                        keys.forEach(function (value, index, array) {
+                            if (index > 0)
+                                stringBuilder += ',';
+                            stringBuilder += value;
+                        });
+                        option.odatakey = stringBuilder;
+                    }
+                    return option;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            GridController.prototype.SetDefaultValue = function () {
+                if (!angular.isDefined(this.scope.hasSearchBehavior)) {
+                    this.scope.hasSearchBehavior = gridConfig.hasSearchBehavior;
+                }
+            };
+            GridController.prototype.ResetBehaviors = function () {
+                this.scope.isAdding = false;
+                this.scope.isEditing = false;
+                this.scope.isDeleting = false;
+                this.scope.isSearching = false;
+                this.scope.isLoading = false;
+            };
+            GridController.prototype.ResetSelectedRows = function () {
+                this.scope.hasSelectedRow = false;
                 this.selectedRows = {};
                 this.cloneSelectedRows = {};
-                this.scope.hasPreviousRange = false;
-                this.scope.hasNextRange = false;
+            };
+            GridController.prototype.ResetPagination = function () {
+                this.scope.hasPreviousPageRange = false;
+                this.scope.hasNextPageRange = false;
                 this.scope.hasPreviousPage = false;
                 this.scope.hasNextPage = false;
                 this.scope.hasFirstPage = false;
                 this.scope.hasLastPage = false;
-                this.scope.hasSearchBar = false;
+            };
+            GridController.prototype.ResetSort = function () {
+                this.sortField = null;
+                this.sortIndex = null;
+            };
+            GridController.prototype.ResetSearchFilters = function () {
                 this.scope.filterOperator = 'eq';
                 this.scope.filterValue = null;
-                this.scope.hasSelectedRow = false;
-                this.scope.isAdding = false;
-                this.scope.isEditing = false;
-                this.dataSource = $odataresource(this.scope.url, {}, {}, this.Option);
+            };
+            GridController.prototype.RegisterDataType = function (columns) {
+                var _this = this;
+                this.columnsType = {};
+                columns.forEach(function (value, index, array) {
+                    if (value.isFiltrable) {
+                        if (!(value.type in _this.columnsType)) {
+                            _this.columnsType[value.type] = new Array();
+                        }
+                        _this.columnsType[value.type].push(value.field);
+                    }
+                    if (value.isPrimaryKey) {
+                        if (_this.columnsType["keys"] == null) {
+                            _this.columnsType["keys"] = new Array();
+                        }
+                        _this.columnsType["keys"].push(value.field);
+                    }
+                });
+            };
+            GridController.prototype.RegisterGridDataColumns = function () {
+                this.scope.grid = {
+                    cols: this.scope.columns
+                };
+            };
+            GridController.prototype.SetWatches = function () {
+                var _this = this;
+                this.scope.$watch(function () { return _this.data.$resolved; }, function (newValue, oldValue) {
+                    if (newValue === false)
+                        return;
+                    _this.InitializeDataGrid();
+                });
+            };
+            GridController.prototype.InitializeODataResource = function (odataResourceService) {
+                this.odataResourceService = odataResourceService;
+                this.odataResource = this.odataResourceService(this.scope.url, {}, {}, this.Option);
+            };
+            GridController.prototype.InitializePagination = function () {
                 if (this.scope.pagination === undefined) {
                     this.scope.isPageable = false;
                 }
@@ -1499,134 +1687,202 @@ var ModernWeb;
                         this.scope.pageRange = this.scope.pagination.range;
                     }
                 }
-                $scope.grid = {
-                    cols: $scope.columns
-                };
-                this.scope.$watch(function () { return _this.result.$resolved; }, function (newValue, oldValue) {
-                    if (newValue === false)
-                        return;
-                    _this.Render();
-                });
-                this.RetrieveData();
-            }
-            Object.defineProperty(GridController.prototype, "Option", {
-                get: function () {
-                    var option = {};
-                    option.isodatav4 = true;
-                    var keys = this.columnsType["keys"];
-                    if (keys != null) {
-                        var stringBuilder = '';
-                        keys.forEach(function (value, index, array) {
-                            if (index > 0)
-                                stringBuilder += ',';
-                            stringBuilder += value;
-                        });
-                        option.odatakey = stringBuilder;
-                    }
-                    return option;
-                },
-                enumerable: true,
-                configurable: true
-            });
-            GridController.prototype.Render = function () {
+            };
+            GridController.prototype.InitializeData = function () {
+                this.Refresh();
+            };
+            GridController.prototype.InitializeDataGrid = function () {
+                this.FetchDataGrid();
+                this.Page();
+            };
+            GridController.prototype.FetchDataGrid = function () {
                 var _this = this;
-                if (this.scope.isPageable) {
-                    var resultCount;
-                    if (this.result.length === 0) {
-                        resultCount = 0;
-                        this.scope.currentPage = 0;
-                    }
-                    else if (this.scope.pageSize === 0) {
-                        resultCount = 1;
-                        this.scope.currentPage = 1;
-                    }
-                    else {
-                        resultCount = this.result.count / this.scope.pageSize;
-                    }
-                    this.scope.total = Math.ceil(resultCount);
-                    this.scope.hasPreviousRange = (this.scope.currentPage > this.scope.pageRange);
-                    this.scope.hasNextRange = Math.ceil(this.scope.total / this.scope.pageRange) > Math.ceil(this.scope.currentPage / this.scope.pageRange);
-                    this.scope.hasFirstPage = this.scope.hasPreviousPage = (this.scope.currentPage > 1);
-                    this.scope.hasLastPage = this.scope.hasNextPage = (this.scope.currentPage < this.scope.total);
-                    var rangeCeil = Math.ceil(this.scope.currentPage / this.scope.pageRange);
-                    var range = (rangeCeil === 0) ? 1 : rangeCeil;
-                    this.scope.startPage = (range - 1) * this.scope.pageRange;
-                    this.scope.endPage = this.scope.startPage + this.scope.pageRange;
-                    if (this.scope.endPage > this.scope.total) {
-                        this.scope.endPage = this.scope.total;
-                    }
-                    if (this.scope.currentPage > this.scope.endPage) {
-                        this.scope.currentPage = this.scope.endPage;
-                    }
-                }
-                this.scope.grid.rows = new Array(this.result.length);
-                this.result.forEach(function (value, index, array) {
+                this.scope.grid.rows = new Array(this.data.length);
+                this.data.forEach(function (value, index, array) {
                     var row = {
                         isEditing: false,
+                        isDeleting: false,
                         isSelected: false,
                         data: value
                     };
                     _this.scope.grid.rows[index] = row;
                 });
             };
-            GridController.prototype.ListDataType = function (columns) {
+            GridController.prototype.Page = function () {
+                if (!this.scope.isPageable) {
+                    return;
+                }
+                var resultCount;
+                if (this.data.length === 0) {
+                    resultCount = 0;
+                    this.scope.currentPage = 0;
+                }
+                else if (this.scope.pageSize === 0) {
+                    resultCount = 1;
+                    this.scope.currentPage = 1;
+                }
+                else {
+                    resultCount = this.data.count / this.scope.pageSize;
+                }
+                this.scope.pageCount = Math.ceil(resultCount);
+                this.scope.hasPreviousPageRange = (this.scope.currentPage > this.scope.pageRange);
+                this.scope.hasNextPageRange = Math.ceil(this.scope.pageCount / this.scope.pageRange) > Math.ceil(this.scope.currentPage / this.scope.pageRange);
+                this.scope.hasFirstPage = this.scope.hasPreviousPage = (this.scope.currentPage > 1);
+                this.scope.hasLastPage = this.scope.hasNextPage = (this.scope.currentPage < this.scope.pageCount);
+                var rangeCeil = Math.ceil(this.scope.currentPage / this.scope.pageRange);
+                var range = (rangeCeil === 0) ? 1 : rangeCeil;
+                this.scope.startPage = (range - 1) * this.scope.pageRange;
+                this.scope.endPage = this.scope.startPage + this.scope.pageRange;
+                if (this.scope.endPage > this.scope.pageCount) {
+                    this.scope.endPage = this.scope.pageCount;
+                }
+                if (this.scope.currentPage > this.scope.endPage) {
+                    this.scope.currentPage = this.scope.endPage;
+                }
+            };
+            GridController.prototype.RetrieveData = function (successCallback, errorCallback) {
+                this.scope.isLoading = true;
+                this.data = this.BuildQuery(this.odataResource.odata()).query(successCallback, errorCallback);
+            };
+            GridController.prototype.HandleRefreshSuccess = function () {
+                if (((this.scope.currentPage - 1) * this.scope.pageSize) >= this.data.count) {
+                    this.GoToPreviousPage();
+                }
+                this.scope.isLoading = false;
+            };
+            GridController.prototype.HandleRefreshError = function () {
+                this.scope.isLoading = false;
+            };
+            GridController.prototype.RefreshAtLastTransactions = function (keys, key) {
+                if (keys[keys.length - 1] == key) {
+                    this.Refresh();
+                }
+            };
+            GridController.prototype.BuildQuery = function (query) {
+                // Search
+                if (this.scope.filterValue != null && this.scope.filterValue != undefined && this.scope.filterValue.trim().length > 0) {
+                    var value;
+                    var predicates = [];
+                    if (this.scope.filterValue.toLowerCase() === 'true' || this.scope.filterValue.toLowerCase() === 'false') {
+                        value = new Boolean(this.scope.filterValue);
+                        this.BuildFilterPredicate(predicates, query, 'Boolean', value, this.scope.filterOperator);
+                    }
+                    else if (parseInt(this.scope.filterValue, 10)) {
+                        value = new Number(this.scope.filterValue);
+                        this.BuildFilterPredicate(predicates, query, 'Int32', value, this.scope.filterOperator);
+                        this.BuildFilterMethod(predicates, query, 'String', this.scope.filterValue, 'contains');
+                    }
+                    else if (parseFloat(this.scope.filterValue)) {
+                        value = new Number(this.scope.filterValue);
+                        this.BuildFilterPredicate(predicates, query, 'Single', value, this.scope.filterOperator);
+                    }
+                    else if (GridController.DATE_REGEX.test(this.scope.filterValue)) {
+                        value = new Date(this.scope.filterValue);
+                        this.BuildFilterPredicate(predicates, query, 'DateTime', value, this.scope.filterOperator);
+                    }
+                    else {
+                        value = this.scope.filterValue;
+                        this.BuildFilterMethod(predicates, query, 'String', value, 'contains');
+                    }
+                    var combination = this.odata.Predicate.or(predicates);
+                    query = query.filter(combination);
+                }
+                // Page
+                if (this.scope.isPageable && this.scope.pageSize > 0) {
+                    if (this.scope.currentPage > 1) {
+                        var skip = (this.scope.currentPage - 1) * this.scope.pageSize;
+                        query = query.skip(skip);
+                    }
+                    query = query.take(this.scope.pageSize);
+                    query = query.withInlineCount();
+                }
+                // Sort
+                if (this.sortField !== null) {
+                    query = query.orderBy(this.sortField, this.MapSort(this.sortOrder));
+                }
+                return query;
+            };
+            GridController.prototype.BuildFilterPredicate = function (predicates, query, type, value, operator) {
+                for (var i = 0, max = this.columnsType[type].length; i < max; i++) {
+                    var predicate = new this.odata.Predicate(this.columnsType[type][i], operator, value);
+                    predicates.push(predicate);
+                }
+            };
+            GridController.prototype.BuildFilterMethod = function (predicates, query, type, value, method) {
+                for (var i = 0, max = this.columnsType[type].length; i < max; i++) {
+                    var methodCall = new this.odata.Func(method, this.columnsType[type][i], value);
+                    predicates.push(methodCall);
+                }
+            };
+            GridController.prototype.SelectRow = function (index, selectedRow) {
+                this.scope.hasSelectedRow = true;
+                selectedRow = this.scope.grid.rows[index];
+                this.cloneSelectedRows[index] = selectedRow;
+                this.selectedRows[index] = selectedRow;
+                selectedRow.isSelected = true;
+            };
+            GridController.prototype.UnselectRow = function (index, selectedRow) {
+                delete this.selectedRows[index];
+                selectedRow.isSelected = false;
+                // If any more selected rows
+                if (Object.keys(this.selectedRows).length == 0) {
+                    this.scope.hasSelectedRow = false;
+                    this.scope.isEditing = false;
+                }
+            };
+            GridController.prototype.ToggleNewRow = function () {
+                this.scope.isAdding = !this.scope.isAdding;
+            };
+            GridController.prototype.MapSort = function (order) {
+                return (order === ModernWeb.SortDirection.Ascending) ?
+                    "asc" :
+                    "desc";
+            };
+            GridController.prototype.Reset = function () {
                 var _this = this;
-                this.columnsType = {};
-                columns.forEach(function (value, index, array) {
-                    if (value.isFiltrable) {
-                        if (!(value.type in _this.columnsType)) {
-                            _this.columnsType[value.type] = new Array();
-                        }
-                        _this.columnsType[value.type].push(value.field);
-                    }
-                    if (value.isPrimaryKey) {
-                        if (_this.columnsType["keys"] == null) {
-                            _this.columnsType["keys"] = new Array();
-                        }
-                        _this.columnsType["keys"].push(value.field);
-                    }
+                var resource = this.odataResourceService("http://localhost:27806/odata/Characters/CharacterService.Reset");
+                resource.save(function () {
+                    _this.Refresh();
                 });
             };
-            GridController.prototype.RetrieveData = function () {
-                this.result = this.BuildQuery(this.dataSource.odata()).query();
-            };
             GridController.prototype.Refresh = function () {
-                this.selectedRows = {};
-                this.RetrieveData();
+                var _this = this;
+                this.ResetSelectedRows();
+                this.RetrieveData(function () { _this.HandleRefreshSuccess(); }, function () { _this.HandleRefreshError(); });
             };
-            GridController.prototype.Page = function (page) {
+            GridController.prototype.GoToPage = function (page) {
                 this.scope.currentPage = page;
                 this.Refresh();
             };
-            GridController.prototype.FirstPage = function () {
-                this.Page(1);
+            GridController.prototype.GoToFirstPage = function () {
+                this.GoToPage(1);
             };
-            GridController.prototype.LastPage = function () {
-                this.Page(this.scope.total);
+            GridController.prototype.GoToLastPage = function () {
+                this.GoToPage(this.scope.pageCount);
             };
-            GridController.prototype.PreviousPage = function () {
+            GridController.prototype.GoToPreviousPage = function () {
                 if (this.scope.currentPage > 1) {
-                    this.Page(this.scope.currentPage - 1);
+                    this.GoToPage(this.scope.currentPage - 1);
                 }
             };
-            GridController.prototype.NextPage = function (page) {
-                if (this.scope.currentPage < this.scope.total) {
-                    this.Page(this.scope.currentPage + 1);
+            GridController.prototype.GoToNextPage = function (page) {
+                if (this.scope.currentPage < this.scope.pageCount) {
+                    this.GoToPage(this.scope.currentPage + 1);
                 }
             };
-            GridController.prototype.PreviousRange = function () {
+            GridController.prototype.GoToPreviousPageRange = function () {
                 var rs = (this.scope.currentPage % this.scope.pageRange);
                 if (rs == 0)
                     rs = this.scope.pageRange;
-                this.Page(this.scope.currentPage - rs);
+                this.GoToPage(this.scope.currentPage - rs);
             };
-            GridController.prototype.NextRange = function () {
+            GridController.prototype.GoToNextPageRange = function () {
                 var rs = this.scope.currentPage % this.scope.pageRange;
                 if (rs == 0)
                     rs = this.scope.pageRange;
-                this.Page(this.scope.currentPage + (this.scope.pageRange - rs) + 1);
+                this.GoToPage(this.scope.currentPage + (this.scope.pageRange - rs) + 1);
             };
-            GridController.prototype.PageSize = function (pageSize) {
+            GridController.prototype.SelectPageSize = function (pageSize) {
                 this.scope.pageSize = pageSize;
                 this.scope.currentPage = 1;
                 this.Refresh();
@@ -1660,118 +1916,84 @@ var ModernWeb;
                 this.sortField = field;
                 this.Refresh();
             };
-            GridController.prototype.BuildQuery = function (query) {
-                // Search
-                if (this.scope.filterValue != null && this.scope.filterValue != undefined && this.scope.filterValue.trim().length > 0) {
-                    var value;
-                    var predicates = [];
-                    if (this.scope.filterValue.toLowerCase() === 'true' || this.scope.filterValue.toLowerCase() === 'false') {
-                        value = new Boolean(this.scope.filterValue);
-                        this.FilterPredicate(predicates, query, 'Boolean', value, this.scope.filterOperator);
-                    }
-                    else if (parseInt(this.scope.filterValue, 10)) {
-                        value = new Number(this.scope.filterValue);
-                        this.FilterPredicate(predicates, query, 'Int32', value, this.scope.filterOperator);
-                        this.FilterMethod(predicates, query, 'String', this.scope.filterValue, 'contains');
-                    }
-                    else if (parseFloat(this.scope.filterValue)) {
-                        value = new Number(this.scope.filterValue);
-                        this.FilterPredicate(predicates, query, 'Single', value, this.scope.filterOperator);
-                    }
-                    else if (GridController.DATE_REGEX.test(this.scope.filterValue)) {
-                        value = new Date(this.scope.filterValue);
-                        this.FilterPredicate(predicates, query, 'DateTime', value, this.scope.filterOperator);
-                    }
-                    else {
-                        value = this.scope.filterValue;
-                        this.FilterMethod(predicates, query, 'String', value, 'contains');
-                    }
-                    var combination = this.odata.Predicate.or(predicates);
-                    query = query.filter(combination);
-                }
-                // Page
-                if (this.scope.isPageable && this.scope.pageSize > 0) {
-                    if (this.scope.currentPage > 1) {
-                        var skip = (this.scope.currentPage - 1) * this.scope.pageSize;
-                        query = query.skip(skip);
-                    }
-                    query = query.take(this.scope.pageSize);
-                    query = query.withInlineCount();
-                }
-                // Sort
-                if (this.sortField !== null) {
-                    query = query.orderBy(this.sortField, this.MapSort(this.sortOrder));
-                }
-                return query;
+            GridController.prototype.OpenSearch = function () {
+                this.scope.isSearching = true;
             };
-            GridController.prototype.FilterPredicate = function (predicates, query, type, value, operator) {
-                for (var i = 0, max = this.columnsType[type].length; i < max; i++) {
-                    var predicate = new this.odata.Predicate(this.columnsType[type][i], operator, value);
-                    predicates.push(predicate);
-                }
-            };
-            GridController.prototype.FilterMethod = function (predicates, query, type, value, method) {
-                for (var i = 0, max = this.columnsType[type].length; i < max; i++) {
-                    var methodCall = new this.odata.Func(method, this.columnsType[type][i], value);
-                    predicates.push(methodCall);
-                }
-            };
-            GridController.prototype.MapSort = function (order) {
-                return (order === ModernWeb.SortDirection.Ascending) ?
-                    "asc" :
-                    "desc";
-            };
-            GridController.prototype.ToggleSearchBar = function () {
-                this.scope.hasSearchBar = !this.scope.hasSearchBar;
-            };
-            GridController.prototype.ToggleNewRow = function () {
-                this.scope.isAdding = !this.scope.isAdding;
+            GridController.prototype.AddRow = function () {
+                this.scope.newRow = {};
+                this.ToggleNewRow();
             };
             GridController.prototype.SelectAllRows = function () {
                 var _this = this;
                 this.scope.hasSelectedRow = true;
                 this.scope.grid.rows.forEach(function (value, index, array) {
-                    _this.selectedRows[index] = value;
-                    value.isSelected = true;
+                    if (!value.isSelected) {
+                        _this.selectedRows[index] = value;
+                        value.isSelected = true;
+                    }
                 });
             };
             GridController.prototype.UnselectAllRows = function () {
                 var _this = this;
+                if (!this.scope.hasSelectedRow) {
+                    return;
+                }
                 this.scope.hasSelectedRow = false;
-                this.scope.isEditing = false;
                 var keys = Object.keys(this.selectedRows);
                 keys.forEach(function (key, index, array) {
-                    if (Object.keys(_this.cloneSelectedRows).length > 0) {
-                        // restore original row
-                        angular.copy(_this.cloneSelectedRows[key], _this.selectedRows[key]);
-                    }
                     var row = _this.selectedRows[key];
                     row.isSelected = false;
-                    row.isEditing = false;
                     delete _this.selectedRows[key];
                 });
             };
-            GridController.prototype.DeleteSelectedRows = function () {
+            GridController.prototype.SaveAdd = function () {
                 var _this = this;
+                var newResource = new this.odataResource();
+                var keys = Object.keys(this.scope.newRow);
+                keys.forEach(function (key, index, array) {
+                    newResource[key] = _this.scope.newRow[key];
+                });
+                newResource.$save(function () {
+                    // Success
+                    _this.ToggleNewRow();
+                    _this.Refresh();
+                });
+            };
+            GridController.prototype.CancelAdd = function () {
+                this.scope.newRow = {};
+                this.ToggleNewRow();
+            };
+            GridController.prototype.DeleteRows = function () {
+                var _this = this;
+                this.scope.isDeleting = true;
+                var keys = Object.keys(this.selectedRows);
+                keys.forEach(function (key, index, array) {
+                    var row = _this.selectedRows[key];
+                    row.isDeleting = true;
+                });
+            };
+            GridController.prototype.SaveDelete = function () {
+                var _this = this;
+                this.scope.isDeleting = false;
                 var keys = Object.keys(this.selectedRows);
                 keys.forEach(function (key, index, array) {
                     var row = _this.selectedRows[key];
                     row.data.$delete().then(function (promiseValue) {
-                        // Refresh on last item
-                        if (index + 1 == keys.length) {
-                            // Check if last page and all elements deleted
-                            if (_this.scope.currentPage == _this.scope.total && keys.length == _this.scope.pageSize) {
-                                _this.PreviousPage();
-                            }
-                            else {
-                                _this.Refresh();
-                            }
-                        }
+                        _this.RefreshAtLastTransactions(keys, key);
                     });
-                    _this.scope.hasSelectedRow = false;
+                    row.isDeleting = false;
                 });
             };
-            GridController.prototype.EditSelectedRows = function () {
+            GridController.prototype.CancelDelete = function () {
+                var _this = this;
+                this.scope.isDeleting = false;
+                var keys = Object.keys(this.selectedRows);
+                keys.forEach(function (key, index, array) {
+                    var row = _this.selectedRows[key];
+                    row.isDeleting = false;
+                });
+            };
+            GridController.prototype.EditRows = function () {
                 var _this = this;
                 this.scope.isEditing = true;
                 angular.copy(this.selectedRows, this.cloneSelectedRows);
@@ -1781,23 +2003,19 @@ var ModernWeb;
                     row.isEditing = true;
                 });
             };
-            GridController.prototype.SaveEditSelectedRows = function () {
+            GridController.prototype.SaveEdit = function () {
                 var _this = this;
                 this.scope.isEditing = false;
                 var keys = Object.keys(this.selectedRows);
                 keys.forEach(function (key, index, array) {
                     var row = _this.selectedRows[key];
                     row.data.$update().then(function (promiseValue) {
-                        // TODO Handle error
-                        // Refresh on last item
-                        //if (index + 1 == keys.length) {
-                        //    this.Refresh();
-                        //}
+                        _this.RefreshAtLastTransactions(keys, key);
                     });
                     row.isEditing = false;
                 });
             };
-            GridController.prototype.CancelEditSelectedRows = function () {
+            GridController.prototype.CancelEdit = function () {
                 var _this = this;
                 this.scope.isEditing = false;
                 var keys = Object.keys(this.selectedRows);
@@ -1809,29 +2027,12 @@ var ModernWeb;
                 });
             };
             GridController.prototype.ToggleSelectRow = function (index) {
-                var row = this.selectedRows[index];
-                if (row != null) {
-                    // row already selected
-                    // restore original row
-                    angular.copy(this.cloneSelectedRows[index], this.selectedRows[index]);
-                    delete this.selectedRows[index];
-                    delete this.cloneSelectedRows[index];
-                    row.isSelected = false;
-                    row.isEditing = false;
-                    // If any more selected rows
-                    if (Object.keys(this.selectedRows).length == 0) {
-                        this.scope.hasSelectedRow = false;
-                        this.scope.isEditing = false;
-                    }
+                var selectedRow = this.selectedRows[index];
+                if (selectedRow == null) {
+                    this.SelectRow(index, selectedRow);
                 }
                 else {
-                    // new row selected
-                    if (Object.keys(this.selectedRows).length == 0) {
-                        this.scope.hasSelectedRow = true;
-                    }
-                    row = this.scope.grid.rows[index];
-                    this.selectedRows[index] = row;
-                    row.isSelected = true;
+                    this.UnselectRow(index, selectedRow);
                 }
             };
             //private datePattern: string = '/[0-3]?[0-9](\/|-|\\)[0-1]?[0-9](\/|-|\\)[0-2]?[0-9]?[0-9][0-9]/';
@@ -2176,6 +2377,7 @@ var ModernWeb;
 /// <reference path="Services/DialogService.ts" />
 /// <reference path="Filters/RangeFilter.ts" />
 /// <reference path="Filters/SpliceFilter.ts" />
+/// <reference path="Directives/AlertDirective.ts" />
 /// <reference path="Directives/AnimateNumberDirective.ts" />
 /// <reference path="Directives/ProgressDirective.ts" />
 /// <reference path="Directives/ProgressBarDirective.ts" />
@@ -2186,6 +2388,7 @@ var ModernWeb;
 /// <reference path="Directives/WizardDirective.ts" />
 /// <reference path="Directives/StepDirective.ts" />
 /// <reference path="Directives/GridDirective.ts" />
+/// <reference path="Controllers/AlertController.ts" />
 /// <reference path="Controllers/AnimateNumberController.ts" />
 /// <reference path="Controllers/InsertController.ts" />
 /// <reference path="Controllers/ProgressController.ts" />
@@ -2203,15 +2406,17 @@ var ModernWeb;
         Module
         ========================================================================== */
     angular
-        .module('ModernWeb', ['ODataResources'])
+        .module('ModernWeb', ['ODataResources', 'ngSanitize'])
         .run(['$rootScope', function ($rootScope) {
             $rootScope.PlayState = ModernWeb.PlayState;
             $rootScope.PlayType = ModernWeb.PlayType;
             $rootScope.PlayDirection = ModernWeb.PlayDirection;
+            $rootScope.AlertType = ModernWeb.AlertType;
         }])
         .service('dialogService', ModernWeb.Services.DialogService)
         .filter('range', ModernWeb.Filters.Range)
         .filter('splice', ModernWeb.Filters.Splice)
+        .directive('mwAlert', ModernWeb.Directives.AlertDirective.Factory())
         .directive('mwAnimateNumber', ModernWeb.Directives.AnimateNumberDirective.Factory())
         .directive('mwProgress', ModernWeb.Directives.ProgressDirective.Factory())
         .directive('mwProgressBar', ModernWeb.Directives.ProgressBarDirective.Factory())
@@ -2222,6 +2427,7 @@ var ModernWeb;
         .directive('mwWizard', ModernWeb.Directives.WizardDirective.Factory())
         .directive('mwStep', ModernWeb.Directives.StepDirective.Factory())
         .directive('mwGrid', ModernWeb.Directives.GridDirective.Factory())
+        .controller('AlertController', ModernWeb.Controllers.AlertController)
         .controller('AnimateNumberController', ModernWeb.Controllers.AnimateNumberController)
         .controller('InsertController', ModernWeb.Controllers.InsertController)
         .controller('ProgressController', ModernWeb.Controllers.ProgressController)
