@@ -1,0 +1,6 @@
+﻿<div class="mw-alerts" ng-repeat="alert in alerts">
+    <div class="alert alert-dismissible" ng-class="{'alert-success': alert.type == AlertType.Success, 'alert-info': alert.type == AlertType.Info, 'alert-warning': alert.type == AlertType.Warning, 'alert-danger': alert.type == AlertType.Danger}" role="alert">
+        <button type="button" class="close" aria-label="Close" ng-click="Close($index)"><span aria-hidden="true">&times;</span></button>
+        <div ng-bind-html="alert.message"></div>
+    </div>
+</div>
