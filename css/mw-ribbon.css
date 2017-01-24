@@ -16,7 +16,7 @@
  *   limitations under the License.
  */
 /* ==========================================================================
-   Ribbon (reengineering in progress ....)
+   Ribbon
    ========================================================================== */
 .mw-ribbon {
   position: relative;
@@ -55,6 +55,7 @@
   text-align: center;
   text-transform: uppercase;
   font-size: 0.75em;
+  line-height: 1.5em;
   cursor: pointer;
 }
 .mw-ribbon .mw-tab:hover {
@@ -90,10 +91,9 @@
 /* Panels
    ========================================================================== */
 .mw-ribbon .mw-panels {
-  height: 100%;
   width: 100%;
   margin: 0;
-  border: 1px solid transparent;
+  border: 1px solid #DDD;
 }
 
 /* Panel
@@ -104,7 +104,7 @@
   height: 100%;
   margin: 0;
   padding: 0.25rem;
-  background-color: none;
+  background-color: transparent;
   border: none;
   box-shadow: none;
 }
@@ -121,7 +121,7 @@
   vertical-align: top;
   height: 100%;
   padding: 0.4rem 0.8rem calc(2 * 0.2rem + 0.7em) 0.8rem;
-  border-right: 1px solid transparent;
+  border-right: 1px solid #E1E1E1;
 }
 
 .mw-ribbon .mw-group > .mw-title {
@@ -141,18 +141,39 @@
 
 .mw-ribbon .mw-group.mw-group-left {
   border-left: none;
-  border-right: 1px solid transparent;
+  border-right: 1px solid #E1E1E1;
 }
 .mw-ribbon .mw-group.mw-group-right {
-  border-left: 1px solid transparent;
+  border-left: 1px solid #E1E1E1;
   border-right: none;
+}
+
+/* Group highlight contextual */
+.mw-group .mw-highlight.mw-contextual {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  margin-top: calc(-0.25rem * 2 - 1px - 0.75rem * 2 - 1.5em);
+  padding: 0.75rem 1rem;
+  border-top: 4px solid #ff6a00;
+  background: rgba(255, 106, 0, 0.15);
+  font-size: 0.75em;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: rgba(255, 106, 0, 0.33) 1px 1px 2px;
+  text-transform: uppercase;
+  color: rgba(255, 106, 0, 0.8);
 }
 
 /* Command
    ========================================================================== */
 .mw-ribbon .mw-command {
   display: inline-block;
+  vertical-align: top;
   position: relative;
+  padding: 0.2rem;
   border: 1px solid transparent;
   cursor: pointer;
 }
@@ -181,7 +202,7 @@
 }
 
 .mw-ribbon .mw-command .mw-icon {
-  padding: 0.10em 0.15em;
+  padding: 0.25rem;
 }
 
 .mw-ribbon .mw-command.mw-disabled, .mw-ribbon .mw-command[disabled] {
@@ -193,6 +214,17 @@
   border-color: #CCC;
   background-image: none;
   background-color: #F0F0F0;
+}
+
+/* Commands
+   ========================================================================== */
+.mw-ribbon .mw-commands {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.mw-ribbon .mw-stacked.mw-commands .mw-command .mw-label {
+  min-height: initial;
 }
 
 /* Split Command
@@ -246,12 +278,30 @@
 /* Label
    ========================================================================== */
 .mw-ribbon .mw-label {
+  min-height: calc(0.1em * 2 + 1.25em * 2);
   padding: 0.1em;
   font-size: 0.75em;
+  line-height: 1.25em;
   text-overflow: ellipsis;
   text-align: center;
   text-transform: capitalize;
   white-space: nowrap;
+}
+
+.mw-ribbon .mw-label {
+  min-height: calc(0.1em * 2 + 1.25em * 2);
+  padding: 0.1em;
+  font-size: 0.75em;
+  line-height: 1.25em;
+  text-overflow: ellipsis;
+  text-align: center;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.mw-ribbon .mw-label.mw-multiline {
+  text-overflow: initial;
+  white-space: initial;
 }
 
 /* Dockable
@@ -296,12 +346,11 @@
 
 .mw-ribbon .mw-command.mw-dropdown .mw-label::after {
   display: block;
-  margin: 0.1em 0;
   width: 100%;
   font-family: "FontAwesome";
   content: "";
 }
-.mw-ribbon .mw-command.mw-dropdown .mw-label.mw-two-lines::after {
+.mw-ribbon .mw-command.mw-dropdown .mw-label.mw-multiline::after {
   display: inline-block;
   width: auto;
 }
@@ -332,6 +381,11 @@
   padding-left: 5px;
   overflow: hidden;
   text-align: center;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+.mw-ribbon .mw-gallery .mw-list li:hover {
+  border-color: #7DA2CE;
 }
 
 .square {
@@ -340,7 +394,12 @@
   height: 10px;
 }
 
-.style-preview {
+.gallery-style {
+  width: calc(4 * 80px + 4 * (2 * 5px) + 4 * (2 * 2px) + 25px);
+  height: calc(50px + 20px + 2px * 2);
+}
+
+.gallery-style-preview {
   width: 80px;
   height: 50px;
   overflow: hidden;
@@ -349,9 +408,9 @@
   line-height: 50px;
 }
 
-.style-label {
+.gallery-style-label {
   width: 80px;
-  height: 26px;
+  height: 20px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

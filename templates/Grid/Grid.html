@@ -103,8 +103,8 @@
                 </div>
             </div>
         </div>
-        <div class="mw-searchbar u-clearfix" ng-show="hasSearchBar">
-            <select class="form-control u-pull-left" role="menu" ng-model="filterOperator" style="width: 25%;">
+        <div class="mw-searchbar u-float-clear" ng-show="hasSearchBar">
+            <select class="form-control u-float-left" role="menu" ng-model="filterOperator" style="width: 25%;">
                 <optgroup label="Search By">
                     <option value="eq" selected>Equal (=)</option>
                     <option value="ne">Not equal (!=)</option>
@@ -114,9 +114,9 @@
                     <option value="le">Less than or equal (&lt;=)</option>
                 </optgroup>
             </select>
-            <div class="u-pull-left u-clearfix" style="width: 75%;">
-                <input type="text" class="form-control u-pull-left" name="search" placeholder="Search ..." ng-model="filterValue" style="width: calc(100% - 40px);">
-                <span class="u-pull-left" style="width: 40px;">
+            <div class="u-float-left u-float-clear" style="width: 75%;">
+                <input type="text" class="form-control u-float-left" name="search" placeholder="Search ..." ng-model="filterValue" style="width: calc(100% - 40px);">
+                <span class="u-float-left" style="width: 40px;">
                     <button class="btn btn-default" type="button" ng-click="GridCtrl.Filter()" style="width: 40px;">
                         <i class="fa fa-search"></i>
                     </button>
