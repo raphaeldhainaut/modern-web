@@ -19,7 +19,6 @@
    ========================================================================== */
 .mw-ribbon {
     position: relative;
-    padding-top: 4px;
     user-select: none;
 }
 
@@ -413,43 +412,6 @@
 
 .mw-ribbon .mw-gallery.mw-expand .mw-inner {
     height: auto;
-}
-
-.square {
-    display: block;
-    width: 10px;
-    height: 10px;
-}
-
-.demo-ribbon.mw-ribbon .mw-panels {
-    height: 101px;
-}
-
-.demo-ribbon.mw-ribbon .mw-input {
-    width: 75px;
-}
-
-.gallery-style {
-    width: calc(4 * 80px + 4 * (2 * 5px) + 4 * (2 * 2px) + 25px);
-    height: calc(45px + 20px + 2px * 2);
-}
-
-.gallery-style-preview {
-    width: 80px;
-    height: 45px;
-    overflow: hidden;
-    white-space: nowrap;
-    font-size: 2rem;
-    line-height: 50px;
-}
-
-.gallery-style-label {
-    width: 80px;
-    height: 20px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: 1.25rem;
 }
 
 /*# sourceMappingURL=mw-ribbon.css.map */
