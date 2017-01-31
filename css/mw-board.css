@@ -1,3 +1,45 @@
-.mw-board{display:inline-block;height:auto;width:auto;overflow:hidden;padding:8px;transition:width linear 0.2s;border:solid 1px #000;background:linear-gradient(to right, #327AA4, #5CB0DC)}.mw-board .mw-tiles:not(.mw-medium){margin-right:-8px;margin-bottom:-8px}.mw-board .mw-panes .mw-pane{margin:0;border-color:transparent}
+/*
+ *   ModernWeb <http://modernweb.azurewebsites.net/>
+ *   Copyright 2016 Raphael Dhainaut, David Vanschepdael
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ * 
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+/* ==========================================================================
+   Board
+   ========================================================================== */
+.mw-board {
+    display: inline-block;
+    height: auto;
+    width: auto;
+    overflow: hidden;
+    padding: 8px;
+    transition: width linear 0.2s;
+    border: solid 1px #000;
+    background: linear-gradient(to right, #327AA4, #5CB0DC);
+}
+
+/* tiles  
+   ========================================================================== */
+.mw-board .mw-tiles:not(.mw-medium) {
+    margin-right: -8px;
+    margin-bottom: -8px;
+}
+
+/* panes  
+   ========================================================================== */
+.mw-board .mw-panes .mw-pane {
+    margin: 0;
+    border-color: transparent;
+}
 
 /*# sourceMappingURL=mw-board.css.map */

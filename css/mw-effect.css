@@ -1,3 +1,591 @@
-.mw-effect{z-index:0;position:absolute;top:0;left:0;background-color:transparent;animation:ease-in-out 0.65s 1 forwards}.mw-effect.mw-in,.mw-effect.mw-out{z-index:1}.mw-effect.mw-active{z-index:2}.mw-effect.mw-rotate-horizontal-clockwise.mw-out,.mw-effect.mw-rotate-horizontal-counterclockwise.mw-reverse.mw-out{animation-name:rotate-horizontal-clockwise-out}.mw-effect.mw-rotate-horizontal-clockwise.mw-in,.mw-effect.mw-rotate-horizontal-counterclockwise.mw-reverse.mw-in{animation-name:rotate-horizontal-clockwise}.mw-effect.mw-rotate-horizontal-counterclockwise.mw-out,.mw-effect.mw-rotate-horizontal-clockwise.mw-reverse.mw-out{animation-name:rotate-horizontal-counterclockwise-out}.mw-effect.mw-rotate-horizontal-counterclockwise.mw-in,.mw-effect.mw-rotate-horizontal-clockwise.mw-reverse.mw-in{animation-name:rotate-horizontal-counterclockwise}.mw-effect.mw-rotate-vertical-clockwise.mw-out,.mw-effect.mw-rotate-vertical-counterclockwise.mw-reverse.mw-out{animation-name:rotate-vertical-clockwise-out}.mw-effect.mw-rotate-vertical-clockwise.mw-in,.mw-effect.mw-rotate-vertical-counterclockwise.mw-reverse.mw-in{animation-name:rotate-vertical-clockwise}.mw-effect.mw-rotate-vertical-counterclockwise.mw-out,.mw-effect.mw-rotate-vertical-clockwise.mw-reverse.mw-out{animation-name:rotate-vertical-counterclockwise-out}.mw-effect.mw-rotate-vertical-counterclockwise.mw-in,.mw-effect.mw-rotate-vertical-clockwise.mw-reverse.mw-in{animation-name:rotate-vertical-counterclockwise}.mw-effect.mw-fade-out.mw-out,.mw-effect.mw-fade-in.mw-reverse.mw-out{animation-name:fade-out;animation-duration:1s;z-index:2}.mw-effect.mw-fade-out.mw-in,.mw-effect.mw-fade-in.mw-reverse.mw-in{z-index:1}.mw-effect.mw-fade-in.mw-in,.mw-effect.mw-fade-out.mw-reverse.mw-in{animation-name:fade-in;animation-duration:1s;z-index:2}.mw-effect.mw-fade-in.mw-out,.mw-effect.mw-fade-out.mw-reverse.mw-out{z-index:1}.mw-effect.mw-push-left.mw-out,.mw-effect.mw-push-right.mw-reverse.mw-out{animation-name:push-left-out}.mw-effect.mw-push-left.mw-in,.mw-effect.mw-push-right.mw-reverse.mw-in{animation-name:push-left-in}.mw-effect.mw-push-right.mw-out,.mw-effect.mw-push-left.mw-reverse.mw-out{animation-name:push-right-out}.mw-effect.mw-push-right.mw-in,.mw-effect.mw-push-left.mw-reverse.mw-in{animation-name:push-right-in}.mw-effect.mw-push-top.mw-out,.mw-effect.mw-push-bottom.mw-reverse.mw-out{animation-name:push-top-out}.mw-effect.mw-push-top.mw-in,.mw-effect.mw-push-bottom.mw-reverse.mw-in{animation-name:push-top-in}.mw-effect.mw-push-bottom.mw-out,.mw-effect.mw-push-top.mw-reverse.mw-out{animation-name:push-bottom-out}.mw-effect.mw-push-bottom.mw-in,.mw-effect.mw-push-top.mw-reverse.mw-in{animation-name:push-bottom-in}.mw-effect.mw-cover-left.mw-in,.mw-effect.mw-uncover-right.mw-reverse.mw-in{animation-name:cover-left}.mw-effect.mw-cover-right.mw-in,.mw-effect.mw-uncover-left.mw-reverse.mw-in{animation-name:cover-right}.mw-effect.mw-cover-top.mw-in,.mw-effect.mw-uncover-bottom.mw-reverse.mw-in{animation-name:cover-top}.mw-effect.mw-cover-bottom.mw-in,.mw-effect.mw-uncover-top.mw-reverse.mw-in{animation-name:cover-bottom}.mw-effect.mw-uncover-left.mw-out,.mw-effect.mw-cover-right.mw-reverse.mw-out{animation-name:uncover-left}.mw-effect.mw-uncover-right.mw-out,.mw-effect.mw-cover-left.mw-reverse.mw-out{animation-name:uncover-right}.mw-effect.mw-uncover-top.mw-out,.mw-effect.mw-cover-bottom.mw-reverse.mw-out{animation-name:uncover-top}.mw-effect.mw-uncover-bottom.mw-out,.mw-effect.mw-cover-top.mw-reverse.mw-out{animation-name:uncover-bottom}@keyframes rotate-horizontal-clockwise{0%{transform:rotateX(0deg)}100%{transform:rotateX(360deg)}}@keyframes rotate-horizontal-clockwise-out{0%{transform:rotateX(0deg)}55%{opacity:1}60%{opacity:0}100%{transform:rotateX(360deg);opacity:0}}@keyframes rotate-horizontal-counterclockwise{0%{transform:rotateX(360deg)}100%{transform:rotateX(0deg)}}@keyframes rotate-horizontal-counterclockwise-out{0%{transform:rotateX(360deg)}55%{opacity:1}60%{opacity:0}100%{transform:rotateX(0deg);opacity:0}}@keyframes rotate-vertical-clockwise{0%{transform:rotateY(0deg)}100%{transform:rotateY(360deg)}}@keyframes rotate-vertical-clockwise-out{0%{transform:rotateY(0deg)}55%{opacity:1}60%{opacity:0}100%{transform:rotateY(360deg);opacity:0}}@keyframes rotate-vertical-counterclockwise{0%{transform:rotateY(360deg)}100%{transform:rotateY(0deg)}}@keyframes rotate-vertical-counterclockwise-out{0%{transform:rotateY(360deg)}55%{opacity:1}60%{opacity:0}100%{transform:rotateY(0deg);opacity:0}}@keyframes fade-in{0%{opacity:0}100%{opacity:1}}@keyframes fade-out{0%{opacity:1}100%{opacity:0}}@keyframes push-left-in{0%{transform:translateX(100%)}100%{transform:translateX(0%)}}@keyframes push-left-out{0%{transform:translateX(0%)}100%{transform:translateX(-100%)}}@keyframes push-right-in{0%{transform:translateX(-100%)}100%{transform:translateX(0%)}}@keyframes push-right-out{0%{transform:translateX(0%)}100%{transform:translateX(100%)}}@keyframes push-top-in{0%{transform:translateY(100%)}100%{transform:translateY(0%)}}@keyframes push-top-out{0%{transform:translateY(0%)}100%{transform:translateY(-100%)}}@keyframes push-bottom-in{0%{transform:translateY(-100%)}100%{transform:translateY(0%)}}@keyframes push-bottom-out{0%{transform:translateY(0%)}100%{transform:translateY(100%)}}@keyframes cover-left{0%{z-index:10;transform:translateX(100%)}100%{z-index:10;transform:translateX(0%)}}@keyframes cover-right{0%{z-index:10;transform:translateX(-100%)}100%{z-index:10;transform:translateX(0%)}}@keyframes cover-top{0%{z-index:10;transform:translateY(100%)}100%{z-index:10;transform:translateY(0%)}}@keyframes cover-bottom{0%{z-index:10;transform:translateY(-100%)}100%{z-index:10;transform:translateY(0%)}}@keyframes uncover-left{0%{z-index:10;transform:translateX(0%)}100%{z-index:10;transform:translateX(-100%)}}@keyframes uncover-right{0%{z-index:10;transform:translateX(0%)}100%{z-index:10;transform:translateX(100%)}}@keyframes uncover-top{0%{z-index:10;transform:translateY(0%)}100%{z-index:10;transform:translateY(-100%)}}@keyframes uncover-bottom{0%{z-index:10;transform:translateY(0%)}100%{z-index:10;transform:translateY(100%)}}@keyframes effect-progress{0%{width:0}100%{width:105%}}@keyframes effect-bars-bottom{100%{opacity:0.25;transform:translateY(100%)}}@keyframes effect-zip-odd{100%{opacity:0.25;transform:translateY(100%)}}@keyframes effect-zip-even{100%{opacity:0.25;transform:translateY(-100%)}}@keyframes effect-blinds{100%{opacity:0.25;transform:scaleX(0)}}@keyframes effect-blocks{100%{opacity:0.25;transform:scale(0)}}@keyframes effect-concentric{100%{opacity:0.25;transform:rotate(90deg)}}@keyframes effect-warp-odd{100%{opacity:0.25;transform:rotate(-90deg)}}@keyframes effect-warp-even{100%{opacity:0.25;transform:rotate(90deg)}}@keyframes effect-cube{100%{transform-style:preserve-3d;transform:rotate3d(0, 1, 0, -90deg) translate3d(-375px, 0px, 375px)}}@keyframes effect-tiles3d{100%{transform:rotate3d(0, 1, 0, 180deg)}}@keyframes effect-bars3d-front{100%{transform-style:preserve-3d;transform:rotate3d(1, 0, 0, -90deg) translate3d(0px, 250px, 250px)}}@keyframes effect-bars3d-back{100%{transform:rotate3d(1, 0, 0, 90deg) translate3d(0px, -250px, 250px)}}@keyframes effect-bars3d-side-left{100%{transform:rotate3d(0, 1, 0, 90deg) translate3d(250px, 0px, -250px) rotate3d(0, 1, 0, 180deg)}}@keyframes effect-bars3d-side-right{100%{transform:rotate3d(0, 1, 0, 90deg) translate3d(250px, 0px, -142px)}}@keyframes effect-turn{100%{transform-origin:0% 50%;transform:rotate3d(0, 1, 0, -179deg)}}@keyframes effect-turn-tab{100%{transform:rotate3d(0, 1, 0, 180deg)}}@keyframes effect-turn-overlay{100%{transition:opacity 800ms linear}}
+/*
+ *   ModernWeb <http://modernweb.azurewebsites.net/>
+ *   Copyright 2016 Raphael Dhainaut, David Vanschepdael
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ * 
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+/* ==========================================================================
+   Effects
+   ========================================================================== */
+.mw-effect {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    animation: ease-in-out 0.65s 1 forwards;
+}
+
+.mw-effect.mw-in, .mw-effect.mw-out {
+    z-index: 1;
+}
+
+.mw-effect.mw-active {
+    z-index: 2;
+}
+
+.mw-effect.mw-rotate-horizontal-clockwise.mw-out, .mw-effect.mw-rotate-horizontal-counterclockwise.mw-reverse.mw-out {
+    animation-name: rotate-horizontal-clockwise-out;
+}
+
+.mw-effect.mw-rotate-horizontal-clockwise.mw-in, .mw-effect.mw-rotate-horizontal-counterclockwise.mw-reverse.mw-in {
+    animation-name: rotate-horizontal-clockwise;
+}
+
+.mw-effect.mw-rotate-horizontal-counterclockwise.mw-out, .mw-effect.mw-rotate-horizontal-clockwise.mw-reverse.mw-out {
+    animation-name: rotate-horizontal-counterclockwise-out;
+}
+
+.mw-effect.mw-rotate-horizontal-counterclockwise.mw-in, .mw-effect.mw-rotate-horizontal-clockwise.mw-reverse.mw-in {
+    animation-name: rotate-horizontal-counterclockwise;
+}
+
+.mw-effect.mw-rotate-vertical-clockwise.mw-out, .mw-effect.mw-rotate-vertical-counterclockwise.mw-reverse.mw-out {
+    animation-name: rotate-vertical-clockwise-out;
+}
+
+.mw-effect.mw-rotate-vertical-clockwise.mw-in, .mw-effect.mw-rotate-vertical-counterclockwise.mw-reverse.mw-in {
+    animation-name: rotate-vertical-clockwise;
+}
+
+.mw-effect.mw-rotate-vertical-counterclockwise.mw-out, .mw-effect.mw-rotate-vertical-clockwise.mw-reverse.mw-out {
+    animation-name: rotate-vertical-counterclockwise-out;
+}
+
+.mw-effect.mw-rotate-vertical-counterclockwise.mw-in, .mw-effect.mw-rotate-vertical-clockwise.mw-reverse.mw-in {
+    animation-name: rotate-vertical-counterclockwise;
+}
+
+.mw-effect.mw-fade-out.mw-out, .mw-effect.mw-fade-in.mw-reverse.mw-out {
+    animation-name: fade-out;
+    animation-duration: 1s;
+    z-index: 2;
+}
+
+.mw-effect.mw-fade-out.mw-in, .mw-effect.mw-fade-in.mw-reverse.mw-in {
+    z-index: 1;
+}
+
+.mw-effect.mw-fade-in.mw-in, .mw-effect.mw-fade-out.mw-reverse.mw-in {
+    animation-name: fade-in;
+    animation-duration: 1s;
+    z-index: 2;
+}
+
+.mw-effect.mw-fade-in.mw-out, .mw-effect.mw-fade-out.mw-reverse.mw-out {
+    z-index: 1;
+}
+
+.mw-effect.mw-push-left.mw-out, .mw-effect.mw-push-right.mw-reverse.mw-out {
+    animation-name: push-left-out;
+}
+
+.mw-effect.mw-push-left.mw-in, .mw-effect.mw-push-right.mw-reverse.mw-in {
+    animation-name: push-left-in;
+}
+
+.mw-effect.mw-push-right.mw-out, .mw-effect.mw-push-left.mw-reverse.mw-out {
+    animation-name: push-right-out;
+}
+
+.mw-effect.mw-push-right.mw-in, .mw-effect.mw-push-left.mw-reverse.mw-in {
+    animation-name: push-right-in;
+}
+
+.mw-effect.mw-push-top.mw-out, .mw-effect.mw-push-bottom.mw-reverse.mw-out {
+    animation-name: push-top-out;
+}
+
+.mw-effect.mw-push-top.mw-in, .mw-effect.mw-push-bottom.mw-reverse.mw-in {
+    animation-name: push-top-in;
+}
+
+.mw-effect.mw-push-bottom.mw-out, .mw-effect.mw-push-top.mw-reverse.mw-out {
+    animation-name: push-bottom-out;
+}
+
+.mw-effect.mw-push-bottom.mw-in, .mw-effect.mw-push-top.mw-reverse.mw-in {
+    animation-name: push-bottom-in;
+}
+
+.mw-effect.mw-cover-left.mw-in, .mw-effect.mw-uncover-right.mw-reverse.mw-in {
+    animation-name: cover-left;
+}
+
+.mw-effect.mw-cover-right.mw-in, .mw-effect.mw-uncover-left.mw-reverse.mw-in {
+    animation-name: cover-right;
+}
+
+.mw-effect.mw-cover-top.mw-in, .mw-effect.mw-uncover-bottom.mw-reverse.mw-in {
+    animation-name: cover-top;
+}
+
+.mw-effect.mw-cover-bottom.mw-in, .mw-effect.mw-uncover-top.mw-reverse.mw-in {
+    animation-name: cover-bottom;
+}
+
+.mw-effect.mw-uncover-left.mw-out, .mw-effect.mw-cover-right.mw-reverse.mw-out {
+    animation-name: uncover-left;
+}
+
+.mw-effect.mw-uncover-right.mw-out, .mw-effect.mw-cover-left.mw-reverse.mw-out {
+    animation-name: uncover-right;
+}
+
+.mw-effect.mw-uncover-top.mw-out, .mw-effect.mw-cover-bottom.mw-reverse.mw-out {
+    animation-name: uncover-top;
+}
+
+.mw-effect.mw-uncover-bottom.mw-out, .mw-effect.mw-cover-top.mw-reverse.mw-out {
+    animation-name: uncover-bottom;
+}
+
+/* rotate horizontal effect
+   ========================================================================== */
+/* To create an great rotate horizontal effect, the first and second content rotate both but at half of time the first is hidden */
+@keyframes rotate-horizontal-clockwise {
+    0% {
+        transform: rotateX(0deg);
+    }
+    100% {
+        transform: rotateX(360deg);
+    }
+}
+
+@keyframes rotate-horizontal-clockwise-out {
+    0% {
+        transform: rotateX(0deg);
+    }
+    55% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 0;
+    }
+    100% {
+        transform: rotateX(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes rotate-horizontal-counterclockwise {
+    0% {
+        transform: rotateX(360deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+
+@keyframes rotate-horizontal-counterclockwise-out {
+    0% {
+        transform: rotateX(360deg);
+    }
+    55% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 0;
+    }
+    100% {
+        transform: rotateX(0deg);
+        opacity: 0;
+    }
+}
+
+/* rotate vertical effect
+   ========================================================================== */
+/* To create an great rotate vertical effect, the first and second content rotate both but at half of time the first is hidden */
+@keyframes rotate-vertical-clockwise {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes rotate-vertical-clockwise-out {
+    0% {
+        transform: rotateY(0deg);
+    }
+    55% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 0;
+    }
+    100% {
+        transform: rotateY(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes rotate-vertical-counterclockwise {
+    0% {
+        transform: rotateY(360deg);
+    }
+    100% {
+        transform: rotateY(0deg);
+    }
+}
+
+@keyframes rotate-vertical-counterclockwise-out {
+    0% {
+        transform: rotateY(360deg);
+    }
+    55% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 0;
+    }
+    100% {
+        transform: rotateY(0deg);
+        opacity: 0;
+    }
+}
+
+/* fade effect 
+   ========================================================================== */
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* push effect
+   ========================================================================== */
+@keyframes push-left-in {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes push-left-out {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes push-right-in {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes push-right-out {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes push-top-in {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes push-top-out {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes push-bottom-in {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes push-bottom-out {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+/* cover effect
+   ========================================================================== */
+@keyframes cover-left {
+    0% {
+        z-index: 10;
+        transform: translateX(100%);
+    }
+    100% {
+        z-index: 10;
+        transform: translateX(0%);
+    }
+}
+
+@keyframes cover-right {
+    0% {
+        z-index: 10;
+        transform: translateX(-100%);
+    }
+    100% {
+        z-index: 10;
+        transform: translateX(0%);
+    }
+}
+
+@keyframes cover-top {
+    0% {
+        z-index: 10;
+        transform: translateY(100%);
+    }
+    100% {
+        z-index: 10;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes cover-bottom {
+    0% {
+        z-index: 10;
+        transform: translateY(-100%);
+    }
+    100% {
+        z-index: 10;
+        transform: translateY(0%);
+    }
+}
+
+/* uncover effect
+   ========================================================================== */
+@keyframes uncover-left {
+    0% {
+        z-index: 10;
+        transform: translateX(0%);
+    }
+    100% {
+        z-index: 10;
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes uncover-right {
+    0% {
+        z-index: 10;
+        transform: translateX(0%);
+    }
+    100% {
+        z-index: 10;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes uncover-top {
+    0% {
+        z-index: 10;
+        transform: translateY(0%);
+    }
+    100% {
+        z-index: 10;
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes uncover-bottom {
+    0% {
+        z-index: 10;
+        transform: translateY(0%);
+    }
+    100% {
+        z-index: 10;
+        transform: translateY(100%);
+    }
+}
+
+/* progress effect
+   ========================================================================== */
+@keyframes effect-progress {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 105%;
+    }
+}
+
+/* bars bottom effect
+   ========================================================================== */
+@keyframes effect-bars-bottom {
+    100% {
+        opacity: 0.25;
+        transform: translateY(100%);
+    }
+}
+
+/* zip effect
+   ========================================================================== */
+@keyframes effect-zip-odd {
+    100% {
+        opacity: 0.25;
+        transform: translateY(100%);
+    }
+}
+
+@keyframes effect-zip-even {
+    100% {
+        opacity: 0.25;
+        transform: translateY(-100%);
+    }
+}
+
+/* blinds effect
+   ========================================================================== */
+@keyframes effect-blinds {
+    100% {
+        opacity: 0.25;
+        transform: scaleX(0);
+    }
+}
+
+/* block effect
+   ========================================================================== */
+@keyframes effect-blocks {
+    100% {
+        opacity: 0.25;
+        transform: scale(0);
+    }
+}
+
+/* concentric effect
+   ========================================================================== */
+@keyframes effect-concentric {
+    100% {
+        opacity: 0.25;
+        transform: rotate(90deg);
+    }
+}
+
+/* warp effect
+   ========================================================================== */
+@keyframes effect-warp-odd {
+    100% {
+        opacity: 0.25;
+        transform: rotate(-90deg);
+    }
+}
+
+@keyframes effect-warp-even {
+    100% {
+        opacity: 0.25;
+        transform: rotate(90deg);
+    }
+}
+
+/* cube effect
+   ========================================================================== */
+@keyframes effect-cube {
+    100% {
+        transform-style: preserve-3d;
+        transform: rotate3d(0, 1, 0, -90deg) translate3d(-375px, 0px, 375px);
+    }
+}
+
+/* tiles 3D effect
+   ========================================================================== */
+@keyframes effect-tiles3d {
+    100% {
+        transform: rotate3d(0, 1, 0, 180deg);
+    }
+}
+
+/* bars 3D effect
+   ========================================================================== */
+@keyframes effect-bars3d-front {
+    100% {
+        transform-style: preserve-3d;
+        transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 250px, 250px);
+    }
+}
+
+@keyframes effect-bars3d-back {
+    100% {
+        transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, -250px, 250px);
+    }
+}
+
+@keyframes effect-bars3d-side-left {
+    100% {
+        transform: rotate3d(0, 1, 0, 90deg) translate3d(250px, 0px, -250px) rotate3d(0, 1, 0, 180deg);
+    }
+}
+
+@keyframes effect-bars3d-side-right {
+    100% {
+        transform: rotate3d(0, 1, 0, 90deg) translate3d(250px, 0px, -142px);
+    }
+}
+
+/* turn effect
+   ========================================================================== */
+@keyframes effect-turn {
+    100% {
+        transform-origin: 0% 50%;
+        transform: rotate3d(0, 1, 0, -179deg);
+    }
+}
+
+@keyframes effect-turn-tab {
+    100% {
+        transform: rotate3d(0, 1, 0, 180deg);
+    }
+}
+
+/* overlay effect
+   ========================================================================== */
+@keyframes effect-turn-overlay {
+    100% {
+        transition: opacity 800ms linear;
+    }
+}
 
 /*# sourceMappingURL=mw-effect.css.map */
