@@ -1,1 +1,1 @@
-.mw-progress{width:100%;height:20px;border-radius:0}.mw-progress .mw-progressing{-webkit-transition:none;transition:none;-webkit-animation:linear effect-progress 2s 1;animation:linear effect-progress 2s 1}.mw-progress .mw-paused{-webkit-animation-play-state:paused;animation-play-state:paused}
+.mw-progress{width:100%;height:20px;border-radius:0}.mw-progress .mw-progressing{transition:none;animation:linear effect-progress 2s 1}.mw-progress .mw-paused{animation-play-state:paused}
